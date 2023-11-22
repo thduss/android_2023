@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 public class nameCardPage extends AppCompatActivity {
     ImageButton return_btn;
     Button edit_btn;
-    Button share_btn;
     Button QR_btn;
 
     @Override
@@ -52,16 +51,6 @@ public class nameCardPage extends AppCompatActivity {
         // QR 페이지로 변환
         QR_btn = findViewById(R.id.namecard_QRcode_btn);
         QR_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), nameCard_backpage.class);
-                startActivity(intent);
-            }
-        });
-
-        // 공유 페이지로 변환
-        share_btn = findViewById(R.id.namecard_share_btn);
-        share_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), nameCard_backpage.class);
