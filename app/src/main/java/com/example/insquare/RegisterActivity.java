@@ -20,6 +20,8 @@ public class RegisterActivity extends AppCompatActivity {
     String userGender;
 
     //파이어 베이스 주석
+    //제발 되라 - 윤재영
+    //test - 진현
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference();
 
