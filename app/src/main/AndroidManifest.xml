@@ -13,6 +13,30 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".QR"
+            android:exported="false" />
+        <activity
+            android:name=".Map"
+            android:exported="false" />
+        <activity
+            android:name=".List"
+            android:exported="false" />
+        <activity
+            android:name=".nameCard_backpage"
+            android:exported="false" />
+        <activity
+            android:name=".nameCard_editpage"
+            android:exported="false" />
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".nameCarBackpage"
+            android:exported="false" />
+        <activity
+            android:name=".nameCardPage"
+            android:exported="false" />
+        <activity
             android:name=".startActivity"
             android:exported="false" />
         <activity

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent EmailLoginIntent = new Intent(MainActivity.this, EmailLoginActivity.class);
+                Intent EmailLoginIntent = new Intent(MainActivity.this, List.class);
                 MainActivity.this.startActivity(EmailLoginIntent);
             }
         });
