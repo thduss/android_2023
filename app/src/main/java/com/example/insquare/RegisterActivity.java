@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     //파이어 베이스 주석
     //제발 되라 - 윤재영
     //test - 진현
+    //test - 김소연
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference();
 
