@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "962085711025",
+    "firebase_url": "https://insquare-f4cdc-default-rtdb.firebaseio.com",
+    "project_id": "insquare-f4cdc",
+    "storage_bucket": "insquare-f4cdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962085711025:android:d0b6a87cd879a1e921c690",
+        "android_client_info": {
+          "package_name": "com.example.insqareproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5qOztt1C0UfAlXHjqfMVofvJBPqJuDUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962085711025:android:23c50313f93e789821c690",
+        "android_client_info": {
+          "package_name": "com.example.insquare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5qOztt1C0UfAlXHjqfMVofvJBPqJuDUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962085711025:android:d047692a9e041c6521c690",
+        "android_client_info": {
+          "package_name": "com.example.insquareproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5qOztt1C0UfAlXHjqfMVofvJBPqJuDUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962085711025:android:49ac4e98a2e2177a21c690",
+        "android_client_info": {
+          "package_name": "com.example.qrcodegenerated"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5qOztt1C0UfAlXHjqfMVofvJBPqJuDUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962085711025:android:3ce2cf2bdfd8f18c21c690",
+        "android_client_info": {
+          "package_name": "com.example.qrscanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5qOztt1C0UfAlXHjqfMVofvJBPqJuDUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
