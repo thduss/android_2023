@@ -24,8 +24,8 @@ public class EmailLoginActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent StartActivityIntent = new Intent(EmailLoginActivity.this, MainActivity.class);
-                EmailLoginActivity.this.startActivity(StartActivityIntent);
+                Intent MainActivityIntent = new Intent(EmailLoginActivity.this, MainActivity.class);
+                EmailLoginActivity.this.startActivity(MainActivityIntent);
             }
         });
 

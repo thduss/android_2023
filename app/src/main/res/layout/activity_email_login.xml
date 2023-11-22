@@ -12,7 +12,7 @@
         android:layout_width="69dp"
         android:layout_height="68dp"
         android:backgroundTint="#FFFFFF"
-        android:drawableBottom="@drawable/backbuttonimage" />
+        android:drawableBottom="@drawable/backbuttonimage"/>
 
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="이메일로 시작하기"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginLeft="7dp"/>
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이메일"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textColor="#4F4F4F"
             android:textStyle="bold"
             android:layout_marginLeft="20dp"/>
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="비밀번호"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textColor="#4F4F4F"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
@@ -87,7 +87,6 @@
                 android:padding="10dp"
                 />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <Button
             android:id="@+id/loginButton"
