@@ -6,15 +6,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Profile extends AppCompatActivity {
+    ImageButton add_btn;
+    ImageButton enter_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        // 해당 명함 페이지로 들어가는 버튼
+        enter_btn = findViewById(R.id.namecard_enter);
+        enter_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), nameCardPage.class);
+                startActivity(intent);
+            }
+        });
+
+        // 해당 명함 페이지로 들어가는 버튼
+        add_btn = findViewById(R.id.add_btn);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), nameCard_createpage.class);
+                startActivity(intent);
+            }
+        });
 
         //하단바 부분 복붙하셈
         BottomNavigationView bottom_menu = findViewById(R.id.bottom_menu);
