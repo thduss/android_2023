@@ -1,19 +1,18 @@
 package com.example.insquare;
 
 public class Register {
-    String p_email;
+    String p_id;
     String p_pwd;
     String p_name;
     String p_number;
     String p_gender;
 
     public Register() { }
-
     public String getP_email() {
-        return p_email;
+        return p_id;
     }
     public void setP_email(String p_email) {
-        this.p_email = p_email;
+        this.p_id = p_email;
     }
     public String getP_pwd() {
         return p_pwd;
@@ -40,8 +39,8 @@ public class Register {
         this.p_gender = p_gender;
     }
 
-    public Register(String p_email, String p_pwd, String p_name, String p_number, String p_gender) {
-        this.p_email = p_email;
+    public Register(String p_id, String p_pwd, String p_name, String p_number, String p_gender) {
+        this.p_id = p_id;
         this.p_pwd = p_pwd;
         this.p_name = p_name;
         this.p_number = p_number;
