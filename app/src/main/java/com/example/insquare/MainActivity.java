@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //상태 바 없애기 수정 왜 안되냐
+        //상태 바 없애기
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent EmailLoginIntent = new Intent(MainActivity.this, List.class);
-                MainActivity.this.startActivity(EmailLoginIntent);
+                Intent EmailLoginIntent = new Intent(MainActivity.this, EmailLoginActivity.class);
+                startActivity(EmailLoginIntent);
             }
         });
     }

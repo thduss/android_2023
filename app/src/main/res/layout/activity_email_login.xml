@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".EmailLoginActivity">
 
     <Button
@@ -12,7 +13,8 @@
         android:layout_width="69dp"
         android:layout_height="68dp"
         android:backgroundTint="#FFFFFF"
-        android:drawableBottom="@drawable/backbuttonimage"/>
+        android:drawableBottom="@drawable/backbuttonimage"
+        tools:ignore="SpeakableTextPresentCheck"/>
 
 
     <TextView
@@ -21,84 +23,77 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="이메일로 시작하기"
+        android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginLeft="7dp"/>
 
 
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="이메일"
+        android:textColor="#4F4F4F"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"/>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/main_textInputLayout_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp">
+        android:background="@color/white">
 
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이메일"
-            android:textSize="15sp"
-            android:textColor="#4F4F4F"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/main_textInputLayout_ID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <EditText
-                android:id="@+id/id_input"
-                android:layout_width="320dp"
-                android:layout_height="50dp"
-                android:hint="이메일을 입력해주세요."
-                android:layout_marginLeft="30dp"
-                android:padding="10dp"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/id_input"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:hint="이메일을 입력해주세요."
+            android:padding="10dp" />
 
         <TextView
             android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="비밀번호"
-            android:textSize="15sp"
-            android:textColor="#4F4F4F"
-            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"/>
+            android:text="비밀번호"
+            android:textColor="#4F4F4F"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_textInputLayout_PW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
-            >
+            android:background="@color/white"
+            app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/password_input"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
                 android:hint="비밀번호를 입력해주세요."
                 android:inputType="textPassword"
-                android:layout_marginLeft="30dp"
-                android:padding="10dp"
-                />
+                android:padding="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:text="로그인"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:backgroundTint="@color/black"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/black"
+        android:text="로그인"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
