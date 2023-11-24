@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".EmailLoginActivity">
 
     <Button
@@ -43,11 +42,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/main_textInputLayout_ID"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/id_input"
+            android:id="@+id/i_email"
             android:layout_width="320dp"
             android:layout_height="50dp"
             android:layout_marginLeft="30dp"
@@ -69,11 +67,10 @@
             android:id="@+id/main_textInputLayout_PW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/password_input"
+                android:id="@+id/i_password"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="30dp"
