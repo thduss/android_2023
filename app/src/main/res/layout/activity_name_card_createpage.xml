@@ -180,11 +180,12 @@
                     android:paddingRight="20dp">
 
                     <EditText
-                        android:id="@+id/location_editText"
+                        android:id="@+id/et_address"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/transparent"
                         android:editable="false"
+                        android:textColor="@color/black"
                         android:focusable="false"
                         android:hint="도로명 주소를 입력해 주세요" />
                 </FrameLayout>
