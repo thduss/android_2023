@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!--길게 누를 때 나오는 레이아웃-->
+
+    <ImageButton
+        android:id="@+id/bt_back2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_gravity="right"
+        />
+
+    <TextView
+        android:id="@+id/tv_id2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="회사"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tv_userName2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="이름"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="이 사용자를 명합첩에서 삭제하시겠습니까?"
+        android:gravity="center"/>
+
+
+    <Button
+        android:id="@+id/bt_delete2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="명합첩에서 삭제" />
+</LinearLayout>
