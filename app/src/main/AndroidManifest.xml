@@ -35,7 +35,12 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".List"
-            android:exported="false" />
+            android:exported="false"/>
+        <activity
+            android:name=".KSG_Lc_List_Activity"
+            android:theme="@android:style/Theme.Holo.Dialog"/>
+        <activity
+            android:name=".KSG_Sc_List_Activity" />
         <activity
             android:name=".nameCard_backpage"
             android:exported="false" />

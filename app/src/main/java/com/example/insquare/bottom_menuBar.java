@@ -1,5 +1,6 @@
 package com.example.insquare;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -14,5 +15,34 @@ public class bottom_menuBar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_menu_bar);
+
+        BottomNavigationView bottom_menu = findViewById(R.id.bottom_menu);
+        bottom_menu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                if(item.getItemId() == R.id.list_id) {
+                    intent = new Intent(bottom_menuBar.this, List.class);
+                    startActivity(intent);
+                    return true;
+                }
+                else if(item.getItemId() == R.id.QR_id) {
+                    intent = new Intent(bottom_menuBar.this, QR.class);
+                    startActivity(intent);
+                    return true;
+                }
+                else if(item.getItemId() == R.id.map_id) {
+                    intent = new Intent(bottom_menuBar.this, Map.class);
+                    startActivity(intent);
+                    return true;
+                }
+                else if(item.getItemId() == R.id.myProfile_id) {
+                    intent = new Intent(bottom_menuBar.this, Profile.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

@@ -8,6 +8,7 @@ public class Register {
     String p_number;
     String p_gender;
 
+
     public Register() { }
     public String getP_uid() {
         return p_uid;
