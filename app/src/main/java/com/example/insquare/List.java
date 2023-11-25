@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,7 @@ public class List extends AppCompatActivity {
     private ArrayList<String> uidList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private FirebaseAuth mFirebaseAuth;
 
 
     @Override
@@ -43,10 +46,17 @@ public class List extends AppCompatActivity {
         arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
         uidList = new ArrayList<>();
 
+        mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 authentication 연동
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 현재 로그인한 계정 객체화
+        String myIdCode = firebaseUser.getUid().toString(); // 객체화한 계정의 고유값을 myIdCode로 받기
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+        databaseReference = database.getReference("ListDB").child(myIdCode); //ListDB 안에 내가 추가한 계정들만 있는 DB로 경로 설정
 
-        databaseReference = database.getReference("UserDB"); // DB 테이블 연결
+        // 원래 코드 주석처리 해놔서 리스트 안뜰거임!
+        // 여기에 그 경로 안에 있는 고유값들만을 받아오는 반복문 설정이 필요해
+
+        //databaseReference = database.getReference("UserDB"); // DB 테이블 연결 선강
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
