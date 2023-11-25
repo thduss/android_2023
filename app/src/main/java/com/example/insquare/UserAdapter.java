@@ -43,14 +43,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserAdapterVh>
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.UserAdapterVh holder, int position) {
+        /*holder.itemView.setTag(position);
+
+        holder.userCompany.setText(userModelList.get(position).getP_company());
+        holder.userName.setText(userModelList.get(position).getP_name());*/
+
         UserModel userModel = userModelList.get(position);
         String firstName = userModel.getFirstName();
         String lastName = userModel.getLastName();
-        String userCompanyName = userModel.getUserCompany();
+        String userCompanyName = userModel.getP_company();
         String userName = lastName + firstName;
+        //String userName = userModel.getP_name();
         //String prefix = firstName.charAt(0) + " " + lastName.charAt(0);
         //이름이 한글/영어 따라 이미지 text 다르게 - 이거로 써야한다면 (일단은 다 한글이라고 가정)
+
         String prefix = firstName;
+        //String prefix = String.valueOf(userName.charAt(1)+userName.charAt(2));
 
         holder.userCompany.setText(userCompanyName);
         holder.userName.setText(userName);
@@ -86,9 +94,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserAdapterVh>
                     for(UserModel userModel: getUserModelListFilter){
                         if(userModel.getFirstName().toLowerCase().contains(searchStr) ||
                                 userModel.getLastName().toLowerCase().contains(searchStr) ||
-                                userModel.getUserCompany().toLowerCase().contains(searchStr)){
+                                userModel.getP_company().toLowerCase().contains(searchStr)){
                             userModels.add(userModel);
                         }
+                        /*if(userModel.getP_name().toLowerCase().contains(searchStr) ||
+                                userModel.getP_company().toLowerCase().contains(searchStr)){
+                            userModels.add(userModel);
+                        }*/
                     }
                     filterResults.values = userModels;
                     filterResults.count = userModels.size();
