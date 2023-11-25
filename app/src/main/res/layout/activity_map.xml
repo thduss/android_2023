@@ -42,7 +42,7 @@
             android:gravity="center"
             android:paddingHorizontal="12dp"
             android:text="선택한 사람의 회사위치가 나타납니다."
-            android:textColor="#D3D3D3"
+            android:textColor="#7E7E7E"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
