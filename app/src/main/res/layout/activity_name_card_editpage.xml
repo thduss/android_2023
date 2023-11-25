@@ -22,14 +22,15 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/eidt_back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:background="@color/white"
-                android:contentDescription="뒤로가기 버튼"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:src="@drawable/backbuttonimage" />
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:background="@color/white"
+            android:contentDescription="뒤로가기 버튼"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/backbuttonimage" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -180,7 +181,7 @@
                     android:paddingRight="20dp">
 
                     <EditText
-                        android:id="@+id/location_editText"
+                        android:id="@+id/et_address"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/transparent"

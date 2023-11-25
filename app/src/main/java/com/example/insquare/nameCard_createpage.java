@@ -43,7 +43,7 @@ public class nameCard_createpage extends AppCompatActivity {
         });
 
         //도로명 주소 API 코드
-        et_address = (EditText) findViewById(R.id.et_address);
+        et_address = (EditText) findViewById(R.id.et_address2);
         et_address.setFocusable(false);
         et_address.setOnClickListener(new View.OnClickListener() {
             @Override

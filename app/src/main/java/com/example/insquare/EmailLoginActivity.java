@@ -72,7 +72,7 @@ public class EmailLoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(EmailLoginActivity.this, "환영합니다.", Toast.LENGTH_SHORT).show();
-                            Intent BottomActivityIntent = new Intent(EmailLoginActivity.this, bottom_menuBar.class);
+                            Intent BottomActivityIntent = new Intent(EmailLoginActivity.this, List.class);
                             EmailLoginActivity.this.startActivity(BottomActivityIntent);
                             finish();
                         }else {
