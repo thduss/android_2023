@@ -82,6 +82,7 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
                 intent.putExtra("key", uidList.get(pos).toString());
 
                 context.startActivity(intent);
+                notifyDataSetChanged();
                 return true;
             }
         });
@@ -94,9 +95,10 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
         return (arrayList != null ? arrayList.size() : 0);
     }
 
-    //삭제기능 구현할려고 만든 함수
-    public void remove(int position) {
-
+    //검색기능
+    public void setItems(ArrayList<List_User> list){
+        arrayList = list;
+        notifyDataSetChanged();
     }
 
 
