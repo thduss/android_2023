@@ -40,14 +40,14 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
         holder.itemView.setTag(position);
         //프로필 사진 정보 불러오기
         Glide.with(holder.itemView)
-                .load(arrayList.get(position).getLogo())
+                .load(arrayList.get(position).getP_logo())
                 .into(holder.iv_logo);
 
         //회사id 정보 받아오기
-        holder.tv_company.setText(arrayList.get(position).getCompany());
+        holder.tv_company.setText(arrayList.get(position).getP_company());
 
         //이름 정보 받아오기
-        holder.tv_username.setText(arrayList.get(position).getUsername());
+        holder.tv_username.setText(arrayList.get(position).getP_name());
 
         //short 클릭 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,10 +59,10 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
 
                 Intent intent = new Intent(context, KSG_Sc_List_Activity.class);
 
-                intent.putExtra("logo", arrayList.get(pos).getLogo());
-                intent.putExtra("username", arrayList.get(pos).getUsername());
-                intent.putExtra("department", arrayList.get(pos).getDepartment());
-                intent.putExtra("position", arrayList.get(pos).getPosition());
+                intent.putExtra("logo", arrayList.get(pos).getP_logo());
+                intent.putExtra("username", arrayList.get(pos).getP_name());
+                intent.putExtra("department", arrayList.get(pos).getP_department());
+                intent.putExtra("position", arrayList.get(pos).getP_position());
 
                 context.startActivity(intent);
             }
@@ -75,8 +75,8 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
 
                 Intent intent = new Intent(context, KSG_Lc_List_Activity.class);
 
-                intent.putExtra("company", arrayList.get(pos).getCompany());
-                intent.putExtra("username", arrayList.get(pos).getUsername());
+                intent.putExtra("company", arrayList.get(pos).getP_company());
+                intent.putExtra("username", arrayList.get(pos).getP_name());
 
                 context.startActivity(intent);
                 return true;
@@ -106,9 +106,10 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.iv_logo = itemView.findViewById(R.id.iv_logo);
-            this.tv_company = itemView.findViewById(R.id.tv_company);
-            this.tv_username = itemView.findViewById(R.id.tv_username);
+
+            this.iv_logo = itemView.findViewById(R.id.iv_logo1);
+            this.tv_company = itemView.findViewById(R.id.tv_company1);
+            this.tv_username = itemView.findViewById(R.id.tv_username1);
 
 
         }
