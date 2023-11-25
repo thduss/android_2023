@@ -102,14 +102,15 @@ public class RegisterActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
-                //g
+                
                 //authentication에 내 이메일, 비번 정보 추가
                 mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            //성공 메세지 출력
+                            //현재 로그인한 값 받아서
                             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                            // realtime database에 저장하는 과정
                             Register user = new Register();
                             user.setP_uid(firebaseUser.getUid());
                             user.setP_email(firebaseUser.getEmail());
@@ -118,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setP_number(phonenum);
                             user.setP_gender(userGender);
                             dbReference.child("UserDB").child(firebaseUser.getUid()).setValue(user);
+                            //성공 메세지 출력
                             Toast.makeText(RegisterActivity.this,"회원가입 성공!", Toast.LENGTH_SHORT).show();
                         } else{
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
