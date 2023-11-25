@@ -26,8 +26,10 @@ public class List extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<List_User> arrayList;
+    private ArrayList<String> uidList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class List extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
+        uidList = new ArrayList<>();
+
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
@@ -50,7 +54,9 @@ public class List extends AppCompatActivity {
                 arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
                     List_User user = snapshot.getValue(List_User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                    String uidKey = snapshot.getKey(); //uid key값 받아오기
                     arrayList.add(user); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+                    uidList.add(uidKey); //uid key값 리스트에 추가
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
@@ -62,7 +68,7 @@ public class List extends AppCompatActivity {
             }
         });
 
-        adapter = new KSG_Custom_Adapter_listver(arrayList, this);
+        adapter = new KSG_Custom_Adapter_listver(arrayList, uidList, this);
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
 

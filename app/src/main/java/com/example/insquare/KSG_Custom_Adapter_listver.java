@@ -17,11 +17,13 @@ import java.util.ArrayList;
 
 public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_Adapter_listver.CustomViewHolder>{
     private ArrayList<List_User> arrayList;
+    private ArrayList<String> uidList;
     private Context context;
 
 
-    public KSG_Custom_Adapter_listver(ArrayList<List_User> arrayList, Context context) {
+    public KSG_Custom_Adapter_listver(ArrayList<List_User> arrayList,ArrayList<String> uidList, Context context) {
         this.arrayList = arrayList;
+        this.uidList = uidList;
         this.context = context;
     }
 
@@ -77,6 +79,7 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
 
                 intent.putExtra("company", arrayList.get(pos).getP_company());
                 intent.putExtra("username", arrayList.get(pos).getP_name());
+                intent.putExtra("key", uidList.get(pos).toString());
 
                 context.startActivity(intent);
                 return true;

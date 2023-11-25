@@ -6,6 +6,7 @@ public class List_User {
     private String p_department;
     private String p_position;
     private String p_company;
+    private  String uid;
 
     public List_User(){}
 
@@ -47,5 +48,13 @@ public class List_User {
 
     public void setP_company(String p_company) {
         this.p_company = p_company;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
