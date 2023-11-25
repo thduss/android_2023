@@ -118,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setP_name(name);
                             user.setP_number(phonenum);
                             user.setP_gender(userGender);
-
+                            dbReference.child("UserDB").child(firebaseUser.getUid()).setValue(user);
                             //성공 메세지 출력
                             Toast.makeText(RegisterActivity.this,"회원가입 성공!", Toast.LENGTH_SHORT).show();
                         } else{
