@@ -7,9 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -18,31 +22,36 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 
 public class List extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private RecyclerView.Adapter rv_adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<List_User> arrayList;
+    private ArrayList<List_User> filterlist = new ArrayList<>(); //검색 필터 된 리스트
     private ArrayList<String> uidList;
+    private ArrayList<String> filterUidlist = new ArrayList<>(); //검색 필터 된 uid 리스트
+    private KSG_Custom_Adapter_listver adapter;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private EditText editText;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
         recyclerView = findViewById(R.id.recyclerView_List); // 아디 연결
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
         uidList = new ArrayList<>();
-
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
@@ -68,9 +77,45 @@ public class List extends AppCompatActivity {
             }
         });
 
+        //edit 텍스트 구현하기
+        editText = findViewById(R.id.editText);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String searchText = editText.getText().toString();
+                filterlist.clear();
+
+                if(searchText.equals("")){
+                    adapter.setItems(arrayList);
+                }
+                else {
+                    // 검색 단어를 포함하는지 확인
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        if (arrayList.get(i).getP_name() != null && arrayList.get(i).getP_company() != null) {
+                            if (arrayList.get(i).getP_name().toLowerCase().contains(searchText.toLowerCase()) ||
+                                    arrayList.get(i).getP_company().toLowerCase().contains(searchText.toLowerCase())) {
+                                filterlist.add(arrayList.get(i));
+                                filterUidlist.add(uidList.get(i));
+                            }
+                        }
+                    }
+                        adapter.setItems(filterlist);
+                    }
+                }
+        });
+
+
         adapter = new KSG_Custom_Adapter_listver(arrayList, uidList, this);
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
-
 
         //하단바 부분 복붙하셈
         BottomNavigationView bottom_menu = findViewById(R.id.bottom_menu);
