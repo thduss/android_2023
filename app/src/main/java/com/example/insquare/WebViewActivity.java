@@ -27,8 +27,7 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
         //최초 웹뷰 로드
-        webView.loadUrl("test-b8854.firebaseapp.com");
-
+        webView.loadUrl("https://test-b8854.firebaseapp.com");
     }
     private class BridgeInterface{
         @JavascriptInterface
@@ -40,4 +39,5 @@ public class WebViewActivity extends AppCompatActivity {
             finish();
         }
     }
+
 }
