@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".nameCard_createpage">
 
     <LinearLayout
@@ -45,9 +44,9 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="415dp"
-        android:layout_height="660dp"
+        android:layout_height="600dp"
         android:fillViewport="true"
-        android:paddingTop="40dp"
+        android:layout_marginTop="50dp"
         android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,11 +179,12 @@
                     android:paddingRight="20dp">
 
                     <EditText
-                        android:id="@+id/location_editText"
+                        android:id="@+id/et_address2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/transparent"
                         android:editable="false"
+                        android:textColor="@color/black"
                         android:focusable="false"
                         android:hint="도로명 주소를 입력해 주세요" />
                 </FrameLayout>

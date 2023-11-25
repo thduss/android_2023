@@ -1,6 +1,7 @@
 package com.example.insquare;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,6 +30,8 @@ public class EmailLoginActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        mDatabaseRef.child("ListDB").child(firebaseUser.getUid()).setValue("다른 사용자 ID");
 
         et_email = findViewById(R.id.i_email);
         et_pwd = findViewById(R.id.i_password);
@@ -72,7 +76,7 @@ public class EmailLoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(EmailLoginActivity.this, "환영합니다.", Toast.LENGTH_SHORT).show();
-                            Intent BottomActivityIntent = new Intent(EmailLoginActivity.this, bottom_menuBar.class);
+                            Intent BottomActivityIntent = new Intent(EmailLoginActivity.this, List.class);
                             EmailLoginActivity.this.startActivity(BottomActivityIntent);
                             finish();
                         }else {

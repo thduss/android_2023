@@ -41,7 +41,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.10.0' //이미지 파일 가져오는것 (김선강)
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0' //이하동문입니다 (김선강)
 
-
     implementation 'com.google.firebase:firebase-firestore:24.9.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
