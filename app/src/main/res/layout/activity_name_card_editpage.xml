@@ -46,7 +46,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="415dp"
-        android:layout_height="660dp"
+        android:layout_height="600dp"
         android:fillViewport="true"
         android:paddingTop="40dp"
         android:paddingBottom="20dp"
