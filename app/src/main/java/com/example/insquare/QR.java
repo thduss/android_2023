@@ -28,7 +28,7 @@ public class QR extends AppCompatActivity {
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(QR.this, QR.class);
+                    intent = new Intent(QR.this, com.example.insquare.QRScanner.class);
                     startActivity(intent);
                     return true;
                 }
