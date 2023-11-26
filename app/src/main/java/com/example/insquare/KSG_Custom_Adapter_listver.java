@@ -1,31 +1,43 @@
 package com.example.insquare;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_Adapter_listver.CustomViewHolder>{
     private ArrayList<List_User> arrayList;
     private ArrayList<String> uidList;
+    private String myUid;
     private Context context;
 
 
-    public KSG_Custom_Adapter_listver(ArrayList<List_User> arrayList,ArrayList<String> uidList, Context context) {
+    public KSG_Custom_Adapter_listver(ArrayList<List_User> arrayList,ArrayList<String> uidList, String myUid,Context context) {
         this.arrayList = arrayList;
         this.uidList = uidList;
+        this.myUid = myUid;
         this.context = context;
     }
+
+
 
     @NonNull
     @Override
@@ -73,16 +85,23 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
             @Override
             public boolean onLongClick(View v) {
                 int pos = holder.getAbsoluteAdapterPosition();
-                Context context = v.getContext();
-
-                Intent intent = new Intent(context, KSG_Lc_List_Activity.class);
-
-                intent.putExtra("company", arrayList.get(pos).getP_company());
-                intent.putExtra("username", arrayList.get(pos).getP_name());
-                intent.putExtra("key", uidList.get(pos).toString());
-
-                context.startActivity(intent);
-                notifyDataSetChanged();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("명함첩에서 삭제");
+                builder.setMessage("삭제하시겠습니까?");
+                builder.setPositiveButton("예",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteItem(pos);
+                            }
+                        });
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
                 return true;
             }
         });
@@ -101,6 +120,36 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
         notifyDataSetChanged();
     }
 
+    public void deleteItem(int position) {
+        // 삭제할 아이템의 Firebase 키 가져오기
+        String deleteKey = uidList.get(position);
+
+        // Firebase에서 데이터 삭제
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ListDB")
+                .child(myUid)
+                .child(deleteKey);
+
+        databaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                // 데이터 삭제 성공 시
+                Toast.makeText(context, "데이터 삭제 성공", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // 데이터 삭제 실패 시
+                Toast.makeText(context, "데이터 삭제 실패: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 어댑터에서 아이템 삭제 및 UI 갱신
+        arrayList.remove(position);
+        uidList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
+    }
+
 
     //리싸이클러뷰 연결 하는 함수 리싸이클러뷰에 정보 연결은 여기서 함
     public class CustomViewHolder extends RecyclerView.ViewHolder {
@@ -111,7 +160,6 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-
             this.iv_logo = itemView.findViewById(R.id.iv_logo1);
             this.tv_company = itemView.findViewById(R.id.tv_company1);
             this.tv_username = itemView.findViewById(R.id.tv_username1);
@@ -119,4 +167,5 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
 
         }
     }
+
 }
