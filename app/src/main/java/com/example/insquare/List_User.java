@@ -6,7 +6,7 @@ public class List_User {
     private String p_department;
     private String p_position;
     private String p_company;
-    private  String uid;
+    private String uid;
 
     public List_User(){}
 

@@ -63,12 +63,12 @@ public class List extends AppCompatActivity {
         String myIdCode = firebaseUser.getUid().toString(); // 객체화한 계정의 고유값을 myIdCode로 받기
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-        databaseReference = database.getReference("ListDB").child(myIdCode); //ListDB 안에 내가 추가한 계정들만 있는 DB로 경로 설정
+        //databaseReference = database.getReference("ListDB").child(myIdCode); //ListDB 안에 내가 추가한 계정들만 있는 DB로 경로 설정
 
         // 원래 코드 주석처리 해놔서 리스트 안뜰거임!
         // 여기에 그 경로 안에 있는 고유값들만을 받아오는 반복문 설정이 필요해
 
-        //databaseReference = database.getReference("UserDB"); // DB 테이블 연결 선강
+        databaseReference = database.getReference("UserDB"); // DB 테이블 연결 선강
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -121,9 +121,9 @@ public class List extends AppCompatActivity {
                             }
                         }
                     }
-                        adapter.setItems(filterlist);
-                    }
+                    adapter.setItems(filterlist);
                 }
+            }
         });
 
 
