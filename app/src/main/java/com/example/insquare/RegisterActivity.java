@@ -29,8 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
@@ -57,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         //파이어 베이스 주석
         dbReference = FirebaseDatabase.getInstance().getReference();
-        mFirebaseAuth = FirebaseAuth.getInstance();;
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         //상태 바 없애기
         View decorView = getWindow().getDecorView();
