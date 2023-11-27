@@ -98,7 +98,7 @@ public class nameCardPage extends AppCompatActivity {
                 }
                 return false;
             }
-        }
+        });
                                                         
         // QR 페이지로 변환
         QR_btn = findViewById(R.id.namecard_QRcode_btn);
