@@ -82,7 +82,8 @@ public class UserInfoActivity extends AppCompatActivity {
         Register register = new Register(name, company, department, position, address, phoneNumber, email, logoUrl);
 
         // Firebase 데이터베이스 참조 생성
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ListDB");
+
 
         // Firebase에 사용자 정보 저장
         databaseReference.push().setValue(register)
