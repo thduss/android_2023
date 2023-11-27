@@ -14,8 +14,8 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 public class KSG_Sc_List_Activity extends AppCompatActivity {
     ImageView sc_Logo;
-    TextView sc_Username,sc_Username2 ,sc_Department, sc_Position;
-    String sLogo, sUsername, sDepartment, sPosition;
+    TextView sc_Username,sc_Username2 ,sc_Department, sc_Position, sc_Email, sc_Number, sc_Adress;
+    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,9 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sc_Username2 = findViewById(R.id.sc_tv_back_name);
         sc_Department = findViewById(R.id.sc_tv_name2);
         sc_Position = findViewById(R.id.sc_tv_name3);
+        sc_Adress = findViewById(R.id.sc_tv_back_adress);
+        sc_Email = findViewById(R.id.sc_tv_back_email);
+        sc_Number = findViewById(R.id.sc_tv_back_number);
 
         Intent intent = getIntent();
 
@@ -51,13 +54,20 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sUsername = intent.getExtras().getString("username");
         sDepartment = intent.getExtras().getString("department");
         sPosition = intent.getExtras().getString("position");
+        sEmail = intent.getExtras().getString("email");
+        sNumber = intent.getExtras().getString("number");
+        sAdress = intent.getExtras().getString("adress");
 
         Glide.with(this)
                 .load(sLogo)
                 .into(this.sc_Logo);
         sc_Username.setText(sUsername);
+        sc_Username2.setText(sUsername);
         sc_Department.setText(sDepartment);
         sc_Position.setText(sPosition);
+        sc_Adress.setText(sAdress);
+        sc_Email.setText(sEmail);
+        sc_Number.setText(sNumber);
 
         ImageButton backBt = findViewById(R.id.sc_bt_back);
         ImageButton qrBt = findViewById(R.id.sc_bt_qr);
@@ -71,7 +81,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         qrBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //QR코드 보이게끔 구현할 예정
+                //QR코드 보이게끔 구현할 예정 재영이가 만든거 그냥 호출하면 끝
                 finish();
             }
         });

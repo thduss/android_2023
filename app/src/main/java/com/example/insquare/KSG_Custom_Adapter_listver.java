@@ -77,6 +77,9 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
                 intent.putExtra("username", arrayList.get(pos).getP_name());
                 intent.putExtra("department", arrayList.get(pos).getP_department());
                 intent.putExtra("position", arrayList.get(pos).getP_position());
+                intent.putExtra("email", arrayList.get(pos).getP_email());
+                intent.putExtra("adress", arrayList.get(pos).getP_adress());
+                intent.putExtra("number", arrayList.get(pos).getP_number());
 
                 context.startActivity(intent);
             }

@@ -67,6 +67,7 @@ public class List extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 authentication 연동
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 현재 로그인한 계정 객체화
         String myIdCode = firebaseUser.getUid().toString(); // 객체화한 계정의 고유값을 myIdCode로 받기
+        Toast.makeText(this, myIdCode, Toast.LENGTH_SHORT).show();
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 

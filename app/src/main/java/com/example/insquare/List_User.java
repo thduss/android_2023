@@ -7,7 +7,10 @@ public class List_User {
     private String p_position;
     private String p_company;
     private String uid;
-
+    private String p_email;
+    private String p_adress;
+    private String p_number;
+    private String p_gender;
     public List_User(){}
 
     public String getP_logo() {
@@ -56,5 +59,37 @@ public class List_User {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getP_email() {
+        return p_email;
+    }
+
+    public void setP_email(String p_email) {
+        this.p_email = p_email;
+    }
+
+    public String getP_adress() {
+        return p_adress;
+    }
+
+    public void setP_adress(String p_adress) {
+        this.p_adress = p_adress;
+    }
+
+    public String getP_number() {
+        return p_number;
+    }
+
+    public void setP_number(String p_number) {
+        this.p_number = p_number;
+    }
+
+    public String getP_gender() {
+        return p_gender;
+    }
+
+    public void setP_gender(String p_gender) {
+        this.p_gender = p_gender;
     }
 }
