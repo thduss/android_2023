@@ -27,7 +27,7 @@ public class bottom_menuBar extends AppCompatActivity {
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(bottom_menuBar.this, com.example.insquare.QRScanner.class);
+                    intent = new Intent(bottom_menuBar.this, QR.class);
                     startActivity(intent);
                     return true;
                 }

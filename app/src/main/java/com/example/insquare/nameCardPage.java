@@ -80,7 +80,7 @@ public class nameCardPage extends AppCompatActivity {
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(nameCardPage.this, com.example.insquare.QRScanner.class);
+                    intent = new Intent(nameCardPage.this, QR.class);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;

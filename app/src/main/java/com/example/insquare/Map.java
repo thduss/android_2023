@@ -179,7 +179,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(Map.this, com.example.insquare.QRScanner.class);
+                    intent = new Intent(Map.this, QR.class);
                     startActivity(intent);
                     return true;
                 }
