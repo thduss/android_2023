@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -26,9 +28,6 @@
             android:name=".GeneratedQRActivity"
             android:exported="false" />
         <activity
-            android:name=".GeneratedQRCode"
-            android:exported="false" />
-        <activity
             android:name=".UserInfoActivity"
             android:exported="false" />
         <activity
@@ -37,7 +36,7 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="****내 키 넣으시오****" />
+            android:value="*****키 추가*****" />
 
         <activity
             android:name=".nameCard_createpage"
@@ -52,9 +51,7 @@
         <activity
             android:name=".List"
             android:exported="false" />
-        <activity
-            android:name=".KSG_Lc_List_Activity"
-            android:theme="@android:style/Theme.Holo.Dialog" />
+
         <activity
             android:name=".KSG_Sc_List_Activity"
             android:exported="false" />

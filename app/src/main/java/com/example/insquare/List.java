@@ -170,7 +170,7 @@ public class List extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(List.this, QR.class);
+                    intent = new Intent(List.this, com.example.insquare.QRScanner.class);
                     startActivity(intent);
                     return true;
                 } else if (item.getItemId() == R.id.map_id) {

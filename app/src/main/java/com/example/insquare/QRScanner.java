@@ -30,14 +30,17 @@ public class QRScanner extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(intentResult != null){
-            if(intentResult.getContents() != null){
-                // 스캔 결과를 UserInfoActivity로 전달
+        if(resultCode == RESULT_CANCELED) {
+            // 사용자가 뒤로가기 버튼을 눌렀을 때의 동작
+            finish();
+        } else if(intentResult != null) {
+            if(intentResult.getContents() != null) {
+                // QR 코드 스캔 결과 처리
                 Intent intent = new Intent(QRScanner.this, UserInfoActivity.class);
                 intent.putExtra("QR_DATA", intentResult.getContents());
                 startActivity(intent);
             }
-        } else{
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

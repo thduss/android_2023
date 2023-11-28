@@ -179,7 +179,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(Map.this, QR.class);
+                    intent = new Intent(Map.this, com.example.insquare.QRScanner.class);
                     startActivity(intent);
                     return true;
                 }
@@ -290,8 +290,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 conn.setConnectTimeout(5000);
                 conn.setReadTimeout(5000);
                 conn.setRequestMethod("GET");
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "****내 키 넣으시오*****");
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "****내 키 넣으시오****");
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "***** 키 추가 *****");
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "***** 키 추가 *****");
                 conn.setDoInput(true);
 
                 int responseCode = conn.getResponseCode();

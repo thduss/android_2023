@@ -52,7 +52,7 @@ public class Profile extends AppCompatActivity {
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(Profile.this, QR.class);
+                    intent = new Intent(Profile.this, com.example.insquare.QRScanner.class);
                     startActivity(intent);
                     return true;
                 }
