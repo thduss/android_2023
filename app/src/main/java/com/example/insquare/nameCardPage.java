@@ -30,8 +30,8 @@ import com.google.firebase.firestore.auth.User;
 public class nameCardPage extends AppCompatActivity {
     ImageButton QR_btn, BackBtn;
     ImageView Logo;
-    TextView Department, Name, Rank, Address, Email, Number;
-    String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber;
+    TextView Department, Name, Name2, Rank, Address, Email, Number;
+    String sLogo, sDepartment, sName2, sName, sRank, sAddress, sEmail, sNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +60,7 @@ public class nameCardPage extends AppCompatActivity {
         Logo = findViewById(R.id.logo);
         Department = findViewById(R.id.nc_department);
         Name = findViewById(R.id.nc_name);
+        Name2 = findViewById(R.id.name2);
         Rank = findViewById(R.id.nc_rank);
         Address = findViewById(R.id.nc_address);
         Email = findViewById(R.id.nc_email);
@@ -79,7 +80,7 @@ public class nameCardPage extends AppCompatActivity {
                 .load(sLogo)
                 .into(this.Logo);
         Name.setText(sName);
-        Name.setText(sName);
+        Name2.setText(sName);
         Department.setText(sDepartment);
         Rank.setText(sRank);
         Address.setText(sAddress);
@@ -97,7 +98,7 @@ public class nameCardPage extends AppCompatActivity {
                                                        
 
         // QR 페이지로 변환
-        QR_btn = findViewById(R.id.namecard_QRcode_btn);
+        QR_btn = findViewById(R.id.QR_btn);
         QR_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
