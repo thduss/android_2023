@@ -11,20 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="50dp"
         app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="25dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:background="@color/white"
+                android:contentDescription="뒤로가기 버튼"
+                app:cardCornerRadius="20dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/backbuttonimage" />
 
             <ImageView
                 android:id="@+id/qr_code_generated"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_centerInParent="true"
                 android:scaleType="fitCenter" />
 
             <TextView
@@ -33,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="65dp"
                 android:text="        InSquare\n네모안에 나를 담다"
                 android:textColor="#000000"
                 android:textSize="15sp" />

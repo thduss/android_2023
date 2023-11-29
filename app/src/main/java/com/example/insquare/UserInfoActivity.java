@@ -1,6 +1,8 @@
 package com.example.insquare;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private Button saveButton;
     private ImageView logoImageView;
     private String[] parts;
+    private Button addToContactsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,13 @@ public class UserInfoActivity extends AppCompatActivity {
                 saveUserInfo();
             }
         });
+        addToContactsButton = findViewById(R.id.addToContactsButton);
+        addToContactsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToContacts();
+            }
+        });
     }
 
     // QR 데이터 파싱 및 화면에 표시하는 메서드
@@ -65,6 +75,26 @@ public class UserInfoActivity extends AppCompatActivity {
             Glide.with(this).load(this.parts[7]).into(logoImageView);
         }
     }
+    // 전화번호부 창을 열어 저장할 수 있게 해주는 메서드
+    private void addToContacts() {
+        // EditText에서 이름, 회사, 전화번호 추출
+        String name = nameEditText.getText().toString();
+        String company = companyEditText.getText().toString();
+        String phoneNumber = phoneEditText.getText().toString();
+
+        // 연락처 추가 인텐트 생성 및 설정
+        Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+        intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+
+        // 이름, 회사, 전화번호를 인텐트에 추가
+        intent.putExtra(ContactsContract.Intents.Insert.NAME, name)
+                .putExtra(ContactsContract.Intents.Insert.PHONE, phoneNumber)
+                .putExtra(ContactsContract.Intents.Insert.COMPANY, company);
+
+        // 연락처 추가 화면 시작
+        startActivity(intent);
+    }
+
 
     // 사용자 정보를 Firebase에 저장하는 메서드
     private void saveUserInfo() {
@@ -82,7 +112,8 @@ public class UserInfoActivity extends AppCompatActivity {
         Register register = new Register(name, company, department, position, address, phoneNumber, email, logoUrl);
 
         // Firebase 데이터베이스 참조 생성
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ListDB");
+
 
         // Firebase에 사용자 정보 저장
         databaseReference.push().setValue(register)
