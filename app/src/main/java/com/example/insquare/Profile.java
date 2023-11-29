@@ -38,7 +38,7 @@ public class Profile extends AppCompatActivity {
     private ArrayList<String> myUidList; //ListDB Uid리스트 / 로그인한 유저안에 있는 유저의 Uid 정보가 담긴 리스트임
     private ArrayList<String> filterUidlist = new ArrayList<>(); //검색 필터 된 uid 리스트
     private FirebaseAuth mFirebaseAuth;
-    private KSG_Custom_Adapter_listver adapter;
+    private KSY_Custom_Adapter_listver adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +118,7 @@ public class Profile extends AppCompatActivity {
         });
 
         // 명함 리스트 창에 어뎁터 연결
-        adapter = new KSG_Custom_Adapter_listver(myList, myUidList, myIdCode ,this);
+        adapter = new KSY_Custom_Adapter_listver(myList, myUidList, myIdCode ,this);
         recyclerView.setAdapter(adapter);
 
 

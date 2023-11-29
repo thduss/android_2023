@@ -9,8 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -26,7 +29,9 @@ import com.google.firebase.firestore.auth.User;
 
 public class nameCardPage extends AppCompatActivity {
     ImageButton QR_btn, BackBtn;
-
+    ImageView Logo;
+    TextView Department, Name, Rank, Address, Email, Number;
+    String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,36 @@ public class nameCardPage extends AppCompatActivity {
                 easyFlipView.flipTheView();
             }
         });
+
+        //DB에서 가져와 띄워주기
+        Logo = findViewById(R.id.logo);
+        Department = findViewById(R.id.nc_department);
+        Name = findViewById(R.id.nc_name);
+        Rank = findViewById(R.id.nc_rank);
+        Address = findViewById(R.id.nc_address);
+        Email = findViewById(R.id.nc_email);
+        Number = findViewById(R.id.nc_number);
+
+        Intent intent = getIntent();
+
+        sLogo = intent.getExtras().getString("logo");
+        sName = intent.getExtras().getString("username");
+        sDepartment = intent.getExtras().getString("department");
+        sRank = intent.getExtras().getString("position");
+        sEmail = intent.getExtras().getString("email");
+        sNumber = intent.getExtras().getString("number");
+        sAddress = intent.getExtras().getString("adress");
+
+        Glide.with(this)
+                .load(sLogo)
+                .into(this.Logo);
+        Name.setText(sName);
+        Name.setText(sName);
+        Department.setText(sDepartment);
+        Rank.setText(sRank);
+        Address.setText(sAddress);
+        Email.setText(sEmail);
+        Number.setText(sNumber);
 
         // 뒤로가기
         BackBtn = findViewById(R.id.backBtn);
