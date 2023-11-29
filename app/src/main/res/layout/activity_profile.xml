@@ -23,7 +23,6 @@
         android:layout_height="490dp"
         android:layout_marginBottom="184dp"
         app:layout_constraintBottom_toBottomOf="@id/card_add_btn"
-
         app:layout_constraintEnd_toEndOf="@+id/bottom_menu"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

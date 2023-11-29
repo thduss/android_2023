@@ -151,27 +151,31 @@
 
     </com.wajahatkarim3.easyflipview.EasyFlipView>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="409dp"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal"
-        android:paddingTop="10dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayout3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="140dp"-->
+<!--        android:background="@color/black"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="horizontal">-->
 
 
-        <android.widget.ImageButton
-            android:id="@+id/sc_bt_qr"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_radius"
-            android:layout_marginRight="10dp"
-            android:contentDescription="QR button"
-            android:src="@drawable/ic_qr"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
-    </LinearLayout>
+<!--        <ImageButton-->
+<!--            android:id="@+id/QR_btn"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:src="@drawable/qr_icon"-->
+<!--            android:contentDescription="QR 버튼"-->
+<!--            android:layout_marginRight="20dp">-->
+<!--        </ImageButton>-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/fix_btn"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:contentDescription="수정 버튼"-->
+<!--            android:src="@drawable/fix_icon"/>-->
+<!--    </LinearLayout>-->
 
 </LinearLayout>

@@ -1,7 +1,6 @@
 package com.example.insquare;
 
 public class myRegister {
-    String m_uid;
     String m_name;
     String m_company;
     String m_department;
@@ -22,12 +21,6 @@ public class myRegister {
     String m_logo;
 
     public myRegister() { }
-    public String getM_uid() {
-        return m_uid;
-    }
-    public void setM_uid(String m_uid) {
-        this.m_uid = m_uid;
-    }
 
     public String getM_name() {
         return m_name;

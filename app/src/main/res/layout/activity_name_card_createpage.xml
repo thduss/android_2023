@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="이름"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="회사"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="부서"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="직급"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="회사 주소"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <!--도로명 주소 api 연결-->
             <LinearLayout
@@ -216,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="이메일"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -232,6 +232,7 @@
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:hint="메일을 입력해 주세요"
+                    android:textColor="@color/white"
                     android:maxLength="11" />
             </FrameLayout>
 
@@ -241,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="전화 번호"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -266,7 +267,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="회사 로고"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"

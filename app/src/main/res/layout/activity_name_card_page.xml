@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".nameCardPage">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:paddingRight="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:paddingRight="90dp">
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageButton
-            android:id="@+id/back_btn"
+            android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="right"
-            android:background="@color/white"
             android:contentDescription="뒤로가기 버튼"
             android:minWidth="48dp"
             android:minHeight="48dp"
@@ -37,31 +35,70 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
+    <com.wajahatkarim3.easyflipview.EasyFlipView
+        android:id="@+id/flipview"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:paddingTop="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_height="wrap_content"
+        app:flipOnTouch="true"
+        app:flipEnabled="true"
+        app:flipDuration="400"
+        app:flipFrom="right"
+        app:flipType="horizontal"
+        app:autoFlipBack="false"
+        android:layout_marginTop="100dp"
+        >
 
-        <ImageButton
-            android:id="@+id/return_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:background="@color/white"
-            android:layout_marginRight="50dp"
-            android:contentDescription="명함 뒤로 돌려주는 버튼"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:src="@drawable/return_btn" />
-
+        <!-- Back Layout Goes Here -->
         <LinearLayout
+            android:id="@+id/backPage"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/radius"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
+                android:text="홍길동"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/nc_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingTop="5dp"
+                android:text="010-0000-0000"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/nc_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="nomail@gmail.com"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/nc_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="전라북도 전주시 덕진구 백제대로 567
+                전북대학교 전주캠퍼스"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- Front Layout Goes Here -->
+        <LinearLayout
+            android:id="@+id/frontPage"
             android:layout_width="350dp"
             android:layout_height="300dp"
             android:orientation="vertical"
@@ -71,6 +108,7 @@
             android:padding="20dp">
             <!--이름-->
             <TextView
+                android:id="@+id/nc_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="홍길동"
@@ -83,11 +121,12 @@
                 android:layout_height="wrap_content">
                 <!--부서-->
                 <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="디지털개발부"
-                android:layout_margin="10dp"
-                android:textColor="@color/black" />
+                    android:id="@+id/nc_department"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="디지털개발부"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/black" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,6 +135,7 @@
                     android:textColor="@color/black" />
                 <!--직급-->
                 <TextView
+                    android:id="@+id/nc_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="주임"
@@ -103,64 +143,39 @@
                     android:textColor="@color/black" />
             </LinearLayout>
             <ImageView
+                android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/samsung"/>
         </LinearLayout>
-    </FrameLayout>
+
+    </com.wajahatkarim3.easyflipview.EasyFlipView>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/white"
+        android:layout_marginTop="140dp"
+        android:background="@color/black"
         android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        app:layout_constraintVertical_bias="0.0"
-        android:paddingTop="10dp">
+        android:orientation="horizontal">
 
-        <android.widget.Button
-            android:id="@+id/namecard_edit_btn"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/btn_radius"
-            android:textColor="@color/black"
-            android:text="수정"
-            android:textSize="11sp" />
 
-        <android.widget.Button
-            android:id="@+id/namecard_QRcode_btn"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_radius"
-            android:layout_marginRight="10dp"
-            android:text="QR코드"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
+        <ImageButton
+            android:id="@+id/QR_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/qr_icon"
+            android:contentDescription="QR 버튼"
+            android:layout_marginRight="20dp">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/fix_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="수정 버튼"
+            android:src="@drawable/fix_icon"/>
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_menu"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:background="#000000"
-        app:itemIconTint="#FFFFFF"
-        app:itemTextColor="#FFFFFF"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/menu" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

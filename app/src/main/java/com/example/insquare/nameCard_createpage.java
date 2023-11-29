@@ -21,8 +21,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class nameCard_createpage extends AppCompatActivity {
     ImageButton back_btn;
@@ -37,6 +40,10 @@ public class nameCard_createpage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_card_createpage);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        dbReference = FirebaseDatabase.getInstance().getReference();
 
         //profile로 돌아가기
         back_btn = findViewById(R.id.create_back_btn);
@@ -97,11 +104,9 @@ public class nameCard_createpage extends AppCompatActivity {
                 }
 
                 //현재 로그인한 값 받아서
-                FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
 
                 // realtime database에 저장하는 과정
                 myRegister user = new myRegister();
-                user.setM_uid(firebaseUser.getUid());
                 user.setM_name(name);
                 user.setM_company(company);
                 user.setM_department(department);
@@ -112,10 +117,33 @@ public class nameCard_createpage extends AppCompatActivity {
                 user.setM_number(number);
                 user.setM_logo(logo);
 
-                dbReference.child("MyList").child(firebaseUser.getUid()).setValue(user);
 
-                //성공 메세지 출력
-                Toast.makeText(nameCard_createpage.this,"회원가입 성공!", Toast.LENGTH_SHORT).show();
+                dbReference.child("MyNameCardDB").child(firebaseUser.getUid()).child("countNum").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        // 데이터 스냅샷에서 개수 가져오기
+                        int cnt = dataSnapshot.getValue(Integer.class);
+                        // 하나 추가 후 고유번호 뒤에 붙히기
+                        cnt++;
+                        String num = String.valueOf(cnt);
+                        String dbAddress = firebaseUser.getUid().concat(num);
+
+                        dbReference.child("UserDB").child(dbAddress).setValue(user);
+                        // 자신의 고유값 생성 후 UserDB에 추가
+                        dbReference.child("MyNameCardDB").child(firebaseUser.getUid()).child("countNum").setValue(cnt);
+                        dbReference.child("MyNameCardDB").child(firebaseUser.getUid()).child(dbAddress).setValue("");
+                        // MyNameCardDB의 내 고유값 리스트에 추가
+                        Toast.makeText(nameCard_createpage.this,"명함 생성 성공!", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // 에러 처리
+                        Toast.makeText(nameCard_createpage.this,"명함 생성 실패!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
     }

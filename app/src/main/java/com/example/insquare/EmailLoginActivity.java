@@ -31,6 +31,9 @@ public class EmailLoginActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+
+
         et_email = findViewById(R.id.i_email);
         et_pwd = findViewById(R.id.i_password);
 
@@ -50,7 +53,7 @@ public class EmailLoginActivity extends AppCompatActivity {
 
             }
         });
-        // 전재영 되라
+
         //RegisterActivity 창으로 넘어가게 설정
         Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
