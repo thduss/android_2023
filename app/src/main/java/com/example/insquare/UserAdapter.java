@@ -6,28 +6,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserAdapterVh> implements Filterable {
 
-    public List<UserModel> userModelList = new ArrayList<>();
-    public List<UserModel> getUserModelListFilter = new ArrayList<>();
+    public List<List_User> userModelList = new ArrayList<>();
+    public List<List_User> getUserModelListFilter = new ArrayList<>();
     public Context context;
 
     // 아이템 클릭 리스너 인터페이스 추가
     public interface OnItemClickListener {
-        void onItemClick(UserModel userModel);
+        void onItemClick(List_User userModel);
     }
 
     private final OnItemClickListener onItemClickListener;
 
-    public UserAdapter(List<UserModel> userModels, Context context, OnItemClickListener onItemClickListener){
+    public UserAdapter(List<List_User> userModels, Context context, OnItemClickListener onItemClickListener){
         this.userModelList = userModels;
         this.getUserModelListFilter = userModels;
         this.context = context;
@@ -36,39 +39,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserAdapterVh>
     @NonNull
     @Override
     public UserAdapter.UserAdapterVh onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.row_users, parent, false);
-        return new UserAdapterVh(view);
+        UserAdapter.UserAdapterVh holder = new UserAdapter.UserAdapterVh(view);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.UserAdapterVh holder, int position) {
-        /*holder.itemView.setTag(position);
+        holder.itemView.setTag(position);
 
         holder.userCompany.setText(userModelList.get(position).getP_company());
-        holder.userName.setText(userModelList.get(position).getP_name());*/
-
-        UserModel userModel = userModelList.get(position);
-        String firstName = userModel.getFirstName();
-        String lastName = userModel.getLastName();
-        String userCompanyName = userModel.getP_company();
-        String userName = lastName + firstName;
-        //String userName = userModel.getP_name();
-        //String prefix = firstName.charAt(0) + " " + lastName.charAt(0);
-        //이름이 한글/영어 따라 이미지 text 다르게 - 이거로 써야한다면 (일단은 다 한글이라고 가정)
-
-        String prefix = firstName;
-        //String prefix = String.valueOf(userName.charAt(1)+userName.charAt(2));
-
-        holder.userCompany.setText(userCompanyName);
-        holder.userName.setText(userName);
-        holder.userPrefix.setText(prefix);
+        holder.userName.setText(userModelList.get(position).getP_name());
+        Glide.with(holder.itemView).load(userModelList.get(position).getP_logo()).into(holder.userLogo);
 
         // 아이템 클릭 이벤트 설정
         holder.itemView.setOnClickListener(v -> {
-            int adapterPosition = holder.getAdapterPosition();
+            int adapterPosition = holder.getAbsoluteAdapterPosition();
             if (adapterPosition != RecyclerView.NO_POSITION) {
-                UserModel _userModel = userModelList.get(adapterPosition);
+                List_User _userModel = userModelList.get(adapterPosition);
                 onItemClickListener.onItemClick(_userModel);
             }
         });
@@ -85,22 +73,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserAdapterVh>
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
+
                 if(constraint == null || constraint.length() == 0){
                     filterResults.values = getUserModelListFilter;
                     filterResults.count = getUserModelListFilter.size();
                 }else {
                     String searchStr = constraint.toString().toLowerCase();
-                    List<UserModel> userModels = new ArrayList<>();
-                    for(UserModel userModel: getUserModelListFilter){
-                        if(userModel.getFirstName().toLowerCase().contains(searchStr) ||
-                                userModel.getLastName().toLowerCase().contains(searchStr) ||
-                                userModel.getP_company().toLowerCase().contains(searchStr)){
-                            userModels.add(userModel);
+                    List<List_User> userModels = new ArrayList<>();
+                    for(List_User userModel: getUserModelListFilter){
+                        if(userModel.getP_name() != null && userModel.getP_address() != null && userModel.getP_company() != null) {
+                            if (userModel.getP_name().toLowerCase().contains(searchStr) ||
+                                    userModel.getP_company().toLowerCase().contains(searchStr)) {
+                                userModels.add(userModel);
+                            }
                         }
-                        /*if(userModel.getP_name().toLowerCase().contains(searchStr) ||
-                                userModel.getP_company().toLowerCase().contains(searchStr)){
-                            userModels.add(userModel);
-                        }*/
                     }
                     filterResults.values = userModels;
                     filterResults.count = userModels.size();
@@ -110,7 +96,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserAdapterVh>
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                userModelList = (List<UserModel>) results.values;
+                userModelList = (List<List_User>) results.values;
                 notifyDataSetChanged();
             }
         };
@@ -119,12 +105,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserAdapterVh>
 
     public static class UserAdapterVh extends RecyclerView.ViewHolder{
         private TextView userName;
-        private TextView userPrefix;
+        private ImageView userLogo;
         private TextView userCompany;
         public UserAdapterVh(@NonNull View itemView){
             super(itemView);
             userName = itemView.findViewById(R.id.tvUserName);
-            userPrefix = itemView.findViewById(R.id.tvPrefix);
+            userLogo = itemView.findViewById(R.id.rlImage);
             userCompany = itemView.findViewById(R.id.tvUserCompany);
         }
     }
