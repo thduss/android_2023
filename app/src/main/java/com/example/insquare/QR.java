@@ -2,9 +2,13 @@ package com.example.insquare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -39,7 +43,7 @@ public class QR extends AppCompatActivity {
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(QR.this, com.example.insquare.QRScanner.class);
+                    intent = new Intent(QR.this, com.example.insquare.QR.class);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;
