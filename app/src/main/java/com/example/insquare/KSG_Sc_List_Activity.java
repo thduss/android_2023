@@ -70,18 +70,9 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sc_Number.setText(sNumber);
 
         ImageButton backBt = findViewById(R.id.sc_bt_back);
-        ImageButton qrBt = findViewById(R.id.sc_bt_qr);
         backBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-            }
-        });
-
-        qrBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //QR코드 보이게끔 구현할 예정 재영이가 만든거 그냥 호출하면 끝
                 finish();
             }
         });
