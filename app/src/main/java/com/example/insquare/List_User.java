@@ -8,9 +8,11 @@ public class List_User {
     private String p_company;
     private String uid;
     private String p_email;
-    private String p_adress;
+    private String p_address;
     private String p_number;
     private String p_gender;
+    private double Loc1; //위도
+    private double Loc2; //경도
     public List_User(){}
 
     public String getP_logo() {
@@ -69,12 +71,12 @@ public class List_User {
         this.p_email = p_email;
     }
 
-    public String getP_adress() {
-        return p_adress;
+    public String getP_address() {
+        return p_address;
     }
 
-    public void setP_adress(String p_adress) {
-        this.p_adress = p_adress;
+    public void setP_address(String p_adress) {
+        this.p_address = p_adress;
     }
 
     public String getP_number() {
@@ -91,5 +93,21 @@ public class List_User {
 
     public void setP_gender(String p_gender) {
         this.p_gender = p_gender;
+    }
+
+    public double getLoc1() {
+        return Loc1;
+    }
+
+    public void setLoc1(double loc1) {
+        Loc1 = loc1;
+    }
+
+    public double getLoc2() {
+        return Loc2;
+    }
+
+    public void setLoc2(double loc2) {
+        Loc2 = loc2;
     }
 }

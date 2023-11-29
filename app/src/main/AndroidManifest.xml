@@ -25,9 +25,9 @@
         <activity
             android:name=".GeneratedQRActivity"
             android:exported="false" />
-        <activity
-            android:name=".GeneratedQRCode"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".GeneratedQRCode"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".UserInfoActivity"
             android:exported="false" />
@@ -37,7 +37,7 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="***** key 넣어*******" />
+            android:value="dpncqq1sjt" />
 
         <activity
             android:name=".nameCard_createpage"
@@ -52,9 +52,6 @@
         <activity
             android:name=".List"
             android:exported="false" />
-        <activity
-            android:name=".KSG_Lc_List_Activity"
-            android:theme="@android:style/Theme.Holo.Dialog" />
         <activity
             android:name=".KSG_Sc_List_Activity"
             android:exported="false" />
