@@ -25,11 +25,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class nameCard_backpage extends AppCompatActivity {
     ImageButton return_btn;
     Button edit_btn, QR_btn;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_card_backpage);
+        database = FirebaseDatabase.getInstance();
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 현재 로그인한 계정 객체화
+        String myIdCode = firebaseUser.getUid().toString(); // 객체화한 계정의 고유값을 myIdCode로 받기
 
         // 명함 앞 페이지로 변환
         return_btn = findViewById(R.id.return_btn);
@@ -91,7 +97,7 @@ public class nameCard_backpage extends AppCompatActivity {
                     String loggedInUserId = firebaseUser.getUid();
 
                     // MyListDB에서 현재 로그인된 사용자의 명함 정보 가져오기
-                    DatabaseReference myListDBRef = FirebaseDatabase.getInstance().getReference("MyListDB").child(loggedInUserId);
+                    DatabaseReference myListDBRef = FirebaseDatabase.getInstance().getReference("UserDB").child(loggedInUserId);
                     myListDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
