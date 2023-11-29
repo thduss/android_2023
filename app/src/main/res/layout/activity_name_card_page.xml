@@ -60,7 +60,7 @@
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/sc_tv_back_name"
+                android:id="@+id/nc_name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -70,7 +70,7 @@
                 android:textSize="25dp" />
 
             <TextView
-                android:id="@+id/sc_tv_back_number"
+                android:id="@+id/nc_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -79,7 +79,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/sc_tv_back_email"
+                android:id="@+id/nc_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -87,7 +87,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/sc_tv_back_adress"
+                android:id="@+id/nc_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -108,7 +108,7 @@
             android:padding="20dp">
             <!--이름-->
             <TextView
-                android:id="@+id/sc_tv_name"
+                android:id="@+id/nc_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="홍길동"
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content">
                 <!--부서-->
                 <TextView
-                    android:id="@+id/sc_tv_name2"
+                    android:id="@+id/nc_department"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="디지털개발부"
@@ -135,7 +135,7 @@
                     android:textColor="@color/black" />
                 <!--직급-->
                 <TextView
-                    android:id="@+id/sc_tv_name3"
+                    android:id="@+id/nc_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="주임"
@@ -143,7 +143,7 @@
                     android:textColor="@color/black" />
             </LinearLayout>
             <ImageView
-                android:id="@+id/sc_tv_logo"
+                android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/samsung"/>
