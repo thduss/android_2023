@@ -35,7 +35,7 @@ public class nameCard_editpage extends AppCompatActivity {
         });
 
         // 명함 추가 버튼 -> 일단 내 명함 리스트로 가도록 구현했는데 디비에 저장되도록 다시 구현 필요
-        add_btn = findViewById(R.id.namecard_add_btn);
+        add_btn = findViewById(R.id.namecard_fix_btn);
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

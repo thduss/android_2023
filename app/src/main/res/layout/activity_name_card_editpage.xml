@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nameCard_editpage">
+    tools:context=".nameCard_createpage">
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -21,36 +21,35 @@
             android:orientation="horizontal">
 
             <ImageButton
-            android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:background="@color/white"
-            android:contentDescription="뒤로가기 버튼"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:src="@drawable/backbuttonimage" />
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:contentDescription="뒤로가기 버튼"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/backbuttonimage" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:paddingLeft="10dp"
                 android:gravity="center"
-                android:textColor="@color/black"
-                android:text="나의 명함 수정하기"
+                android:text="나의 명함 추가하기"
+                android:textColor="@color/white"
                 android:textSize="20dp" />
         </LinearLayout>
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="415dp"
-        android:layout_height="600dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
-        android:paddingTop="40dp"
+        android:layout_marginTop="50dp"
         android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
@@ -72,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="이름"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -83,6 +82,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_name"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="회사"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -106,6 +106,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_company"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -118,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="부서"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -128,6 +129,7 @@
                 android:paddingLeft="20dp">
 
                 <EditText
+                    android:id="@+id/c_department"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -140,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="직급"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -150,6 +152,7 @@
                 android:paddingLeft="20dp">
 
                 <EditText
+                    android:id="@+id/c_rank"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -162,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="회사 주소"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <!--도로명 주소 api 연결-->
             <LinearLayout
@@ -185,6 +188,7 @@
                         android:layout_height="50dp"
                         android:background="@android:color/transparent"
                         android:editable="false"
+                        android:textColor="@color/black"
                         android:focusable="false"
                         android:hint="도로명 주소를 입력해 주세요" />
                 </FrameLayout>
@@ -198,6 +202,7 @@
                     android:paddingRight="20dp">
 
                     <EditText
+                        android:id="@+id/detail_address"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/transparent"
@@ -211,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="이메일"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -222,10 +227,12 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_email"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:hint="메일을 입력해 주세요"
+                    android:textColor="@color/white"
                     android:maxLength="11" />
             </FrameLayout>
 
@@ -235,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="전화 번호"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -246,6 +253,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_number"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -259,7 +267,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="회사 로고"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -270,6 +278,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_logo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -277,11 +286,11 @@
             </FrameLayout>
 
             <android.widget.Button
-                android:id="@+id/namecard_add_btn"
+                android:id="@+id/namecard_fix_btn"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="250dp"
-                android:background="@drawable/btn_radius"
+                android:background="@drawable/radius"
                 android:text="수정 하기"
                 android:textColor="@color/black"
                 android:textSize="11sp" />
