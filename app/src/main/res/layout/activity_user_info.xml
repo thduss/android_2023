@@ -75,17 +75,34 @@
             android:layout_marginBottom="16dp"/>
 
 
-        <Button
-            android:id="@+id/saveButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="저장"/>
-        <Button
-            android:id="@+id/addToContactsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="연락처에 추가"
-            android:layout_marginTop="8dp"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+
+            <ImageButton
+                android:id="@+id/saveButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_save"
+                android:contentDescription="리스트 저장"
+                android:background="@drawable/rect_round_white"
+                android:layout_marginRight="20dp">
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/fix_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/rect_round_white"
+                android:contentDescription="전화번호부 저장"
+                android:src="@drawable/ic_save_phonenumber"/>
+        </LinearLayout>
+
 
 
     </LinearLayout>
