@@ -114,6 +114,7 @@ public class nameCardPage extends AppCompatActivity {
                     DatabaseReference myListDBRef = FirebaseDatabase.getInstance().getReference("MyListDB").child(loggedInUserId);
                     myListDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
+<<<<<<< HEAD
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
                                 for (DataSnapshot cardSnapshot : dataSnapshot.getChildren()) {
@@ -148,6 +149,17 @@ public class nameCardPage extends AppCompatActivity {
                                         }
                                     });
                                 }
+=======
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Register registerInfo = dataSnapshot.getValue(Register.class);
+                            if (registerInfo != null) {
+                                Intent intent = new Intent(nameCardPage.this, GeneratedQRActivity.class);
+                                intent.putExtra("QR_DATA", registerInfo.toQRString());
+                                startActivity(intent);
+                                overridePendingTransition(0, 0);
+                            } else {
+                                Toast.makeText(nameCardPage.this, "사용자 정보가 없습니다", Toast.LENGTH_LONG).show();
+>>>>>>> 323e2d9427840a44af993404029f44266b077335
                             }
                         }
 

@@ -176,21 +176,25 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 if(item.getItemId() == R.id.list_id) {
                     intent = new Intent(Map.this, List.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
                     intent = new Intent(Map.this, QR.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.map_id) {
                     intent = new Intent(Map.this, Map.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.myProfile_id) {
                     intent = new Intent(Map.this, Profile.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 return false;
@@ -290,8 +294,13 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 conn.setConnectTimeout(5000);
                 conn.setReadTimeout(5000);
                 conn.setRequestMethod("GET");
+
                 conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "***** 키 추가 *****");
                 conn.setRequestProperty("X-NCP-APIGW-API-KEY", "***** 키 추가 *****");
+
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "***** key 넣어*******");
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "***** key 넣어*******");
+
                 conn.setDoInput(true);
 
                 int responseCode = conn.getResponseCode();

@@ -12,13 +12,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/round_bg">
+
         <TextView
             android:id="@+id/tvPrefix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="MT"
-            android:textColor="@color/white"
-            android:layout_centerInParent="true"/>
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <TextView

@@ -30,7 +30,9 @@ public class EmailLoginActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+
 
         et_email = findViewById(R.id.i_email);
         et_pwd = findViewById(R.id.i_password);
@@ -47,6 +49,7 @@ public class EmailLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent MainActivityIntent = new Intent(EmailLoginActivity.this, MainActivity.class);
                 EmailLoginActivity.this.startActivity(MainActivityIntent);
+                overridePendingTransition(0, 0);
 
             }
         });
@@ -59,6 +62,7 @@ public class EmailLoginActivity extends AppCompatActivity {
 
                 Intent RegisterActivityIntent = new Intent(EmailLoginActivity.this, RegisterActivity.class);
                 EmailLoginActivity.this.startActivity(RegisterActivityIntent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -77,6 +81,7 @@ public class EmailLoginActivity extends AppCompatActivity {
                             Toast.makeText(EmailLoginActivity.this, "환영합니다.", Toast.LENGTH_SHORT).show();
                             Intent BottomActivityIntent = new Intent(EmailLoginActivity.this, List.class);
                             EmailLoginActivity.this.startActivity(BottomActivityIntent);
+                            overridePendingTransition(0, 0);
                             finish();
                         }else {
                             Toast.makeText(EmailLoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();

@@ -30,9 +30,6 @@
         <activity
             android:name=".UserInfoActivity"
             android:exported="false" />
-        <activity
-            android:name=".QRScanner"
-            android:exported="false" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

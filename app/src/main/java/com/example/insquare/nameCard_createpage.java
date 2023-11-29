@@ -2,6 +2,8 @@ package com.example.insquare;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,10 +14,24 @@ import android.widget.ImageButton;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class nameCard_createpage extends AppCompatActivity {
     ImageButton back_btn;
     Button add_btn;
     private EditText et_address;
+    EditText c_name, c_company, c_department, c_rank, detail_address, c_email, c_number, c_logo;
+    AlertDialog dialog;
+    DatabaseReference dbReference;
+    FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +45,7 @@ public class nameCard_createpage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Profile.class);
                 startActivity(intent);
-            }
-        });
-
-        // 명함 추가 버튼 -> 일단 내 Profile로 가도록 구현했는데 디비에 저장되도록 다시 구현 필요
-        add_btn = findViewById(R.id.namecard_add_btn);
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Profile.class);
-                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -51,6 +58,64 @@ public class nameCard_createpage extends AppCompatActivity {
                 //주소 검색 웹 뷰 화면으로 이동
                 Intent intent = new Intent(nameCard_createpage.this, WebViewActivity.class);
                 getSearchResult.launch(intent);
+            }
+        });
+
+        //디비 연결
+        c_name = findViewById(R.id.c_name);
+        c_company = findViewById(R.id.c_company);
+        c_department = findViewById(R.id.c_department);
+        c_rank = findViewById(R.id.c_rank);
+        et_address = findViewById(R.id.et_address2);
+        detail_address = findViewById(R.id.detail_address);
+        c_email = findViewById(R.id.c_email);
+        c_number = findViewById(R.id.c_number);
+        c_logo = findViewById(R.id.c_logo);
+
+        add_btn = findViewById(R.id.namecard_add_btn);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = c_name.getText().toString();
+                String company = c_company.getText().toString();
+                String department = c_department.getText().toString();
+                String rank = c_rank.getText().toString();
+                String address = et_address.getText().toString();
+                String detailAddress = detail_address.getText().toString();
+                String email = c_email.getText().toString();
+                String number = c_number.getText().toString();
+                String logo = c_logo.getText().toString();
+
+                if (name.equals("") || company.equals("") || department.equals("") || rank.equals("") || address.equals("")
+                        || detailAddress.equals("") || email.equals("") || number.equals("") || logo.equals("") ) {
+                    AlertDialog.Builder bd = new AlertDialog.Builder(nameCard_createpage.this);
+                    dialog = bd.setMessage("입력하지 않은 칸이 존재합니다.")
+                            .setNegativeButton("확인", null)
+                            .create();
+                    dialog.show();
+                    return;
+                }
+
+                //현재 로그인한 값 받아서
+                FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+
+                // realtime database에 저장하는 과정
+                myRegister user = new myRegister();
+                user.setM_uid(firebaseUser.getUid());
+                user.setM_name(name);
+                user.setM_company(company);
+                user.setM_department(department);
+                user.setM_rank(rank);
+                user.setM_address(address);
+                user.setM_detailAddress(detailAddress);
+                user.setM_email(email);
+                user.setM_number(number);
+                user.setM_logo(logo);
+
+                dbReference.child("MyList").child(firebaseUser.getUid()).setValue(user);
+
+                //성공 메세지 출력
+                Toast.makeText(nameCard_createpage.this,"회원가입 성공!", Toast.LENGTH_SHORT).show();
             }
         });
     }

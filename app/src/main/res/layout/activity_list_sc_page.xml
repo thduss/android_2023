@@ -23,7 +23,6 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="right"
-            android:background="@color/white"
             android:contentDescription="뒤로가기 버튼"
             android:minWidth="48dp"
             android:minHeight="48dp"
@@ -156,19 +155,19 @@
         android:id="@+id/linearLayout3"
         android:layout_width="409dp"
         android:layout_height="60dp"
+        android:layout_marginTop="137dp"
         android:background="@color/white"
         android:gravity="center"
-        android:layout_marginTop="100dp"
         android:orientation="horizontal"
-        android:paddingTop="10dp">
+        android:paddingTop="4dp">
 
 
         <android.widget.ImageButton
             android:id="@+id/sc_bt_qr"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_radius"
             android:layout_marginRight="10dp"
+            android:background="@drawable/btn_radius"
             android:contentDescription="QR button"
             android:src="@drawable/ic_qr"
             android:textColor="@color/black"
