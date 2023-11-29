@@ -168,18 +168,22 @@ public class List extends AppCompatActivity {
                 if (item.getItemId() == R.id.list_id) {
                     intent = new Intent(List.this, List.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 } else if (item.getItemId() == R.id.QR_id) {
                     intent = new Intent(List.this, QR.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 } else if (item.getItemId() == R.id.map_id) {
                     intent = new Intent(List.this, Map.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 } else if (item.getItemId() == R.id.myProfile_id) {
                     intent = new Intent(List.this, Profile.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 return false;

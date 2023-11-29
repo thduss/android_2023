@@ -25,21 +25,25 @@ public class QR extends AppCompatActivity {
                 if(item.getItemId() == R.id.list_id) {
                     intent = new Intent(QR.this, List.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
                     intent = new Intent(QR.this, com.example.insquare.QRScanner.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.map_id) {
                     intent = new Intent(QR.this, Map.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.myProfile_id) {
                     intent = new Intent(QR.this, Profile.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 return false;

@@ -69,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent EmailLoginActivityIntent = new Intent(RegisterActivity.this, EmailLoginActivity.class);
                 RegisterActivity.this.startActivity(EmailLoginActivityIntent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -137,6 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //화면 전환
                 Intent EmailLoginActivityIntent = new Intent(RegisterActivity.this, EmailLoginActivity.class);
                 RegisterActivity.this.startActivity(EmailLoginActivityIntent);
+                overridePendingTransition(0, 0);
 
             }
         });

@@ -102,8 +102,8 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // ListDB에서 데이터를 가져오는 과정에서 에러 발생 시 처리
-                Log.e("ListActivity", "Failed to retrieve friend UIDs: " + databaseError.getMessage());
-            }
+                Log.e("ListActivity", "Failed to retrieve friend UIDs: " + databaseError.getMessage())
+              }
         });
 
         // 해당 명함 페이지로 들어가는 버튼
@@ -113,6 +113,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), nameCard_createpage.class);
                 startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -130,21 +131,25 @@ public class Profile extends AppCompatActivity {
                 if(item.getItemId() == R.id.list_id) {
                     intent = new Intent(Profile.this, List.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
                     intent = new Intent(Profile.this, QR.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.map_id) {
                     intent = new Intent(Profile.this, Map.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.myProfile_id) {
                     intent = new Intent(Profile.this, Profile.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 return false;
