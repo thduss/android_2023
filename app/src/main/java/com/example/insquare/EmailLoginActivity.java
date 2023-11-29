@@ -51,7 +51,7 @@ public class EmailLoginActivity extends AppCompatActivity {
 
             }
         });
-        // 전재영 되라
+
         //RegisterActivity 창으로 넘어가게 설정
         Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {

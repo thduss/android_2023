@@ -225,13 +225,13 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                     public void run() {
                         requestGeocod(userModel);
                     }
-                }).start();
+                    }).start();
 
-                // 클릭한 항목의 위치에 마커 표시
-                /*showMarker(userModel);
+                    // 클릭한 항목의 위치에 마커 표시
+                    /*showMarker(userModel);
 
-                // 키보드를 내림
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    // 키보드를 내림
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
                 // RecyclerView를 숨김
@@ -290,8 +290,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 conn.setConnectTimeout(5000);
                 conn.setReadTimeout(5000);
                 conn.setRequestMethod("GET");
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "****내 키 넣으시오*****");
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "****내 키 넣으시오****");
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "dpncqq1sjt");
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "dcYW2xe4m8O3v2RrHLPTqG1JM1u8pNVovzLb3sdp");
                 conn.setDoInput(true);
 
                 int responseCode = conn.getResponseCode();

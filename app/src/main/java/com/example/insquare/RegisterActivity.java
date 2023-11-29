@@ -109,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             //현재 로그인한 값 받아서
-                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                            /*FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
                             // realtime database에 저장하는 과정
                             Register user = new Register();
                             user.setP_uid(firebaseUser.getUid());
@@ -118,7 +118,10 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setP_name(name);
                             user.setP_number(phonenum);
                             user.setP_gender(userGender);
-                            dbReference.child("UserDB").child(firebaseUser.getUid()).setValue(user);
+                            String db_address = firebaseUser.getUid().concat("0");// 아이디 고유번호의 첫번째 명함 생성
+                            dbReference.child("UserDB").child(db_address).setValue(user); // userDB에 생성
+                            dbReference.child("MyListDB").child(firebaseUser.getUid()).child(db_address).setValue(user);*/
+                            // myListDB에 이 계정 고유값 안에 여러 명함 생성 기반
                             //성공 메세지 출력
                             Toast.makeText(RegisterActivity.this,"회원가입 성공!", Toast.LENGTH_SHORT).show();
                         } else{

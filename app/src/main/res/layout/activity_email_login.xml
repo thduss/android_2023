@@ -28,19 +28,9 @@
         android:layout_marginLeft="7dp"/>
 
 
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="이메일"
-        android:textColor="#4F4F4F"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:layout_marginTop="50dp"/>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/main_textInputLayout_ID"
+        android:layout_marginTop="80dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -52,21 +42,13 @@
             android:hint="이메일을 입력해주세요."
             android:padding="10dp" />
 
-        <TextView
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:text="비밀번호"
-            android:textColor="#4F4F4F"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_textInputLayout_PW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             app:passwordToggleEnabled="true">
 
             <EditText
