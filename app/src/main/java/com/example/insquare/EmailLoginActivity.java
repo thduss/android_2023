@@ -30,8 +30,6 @@ public class EmailLoginActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-        mDatabaseRef.child("ListDB").child(firebaseUser.getUid()).setValue("다른 사용자 ID");
 
         et_email = findViewById(R.id.i_email);
         et_pwd = findViewById(R.id.i_password);

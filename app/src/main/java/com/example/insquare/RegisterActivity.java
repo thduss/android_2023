@@ -119,7 +119,15 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setP_name(name);
                             user.setP_number(phonenum);
                             user.setP_gender(userGender);
-                            dbReference.child("UserDB").child(firebaseUser.getUid()).setValue(user);
+                            String dbAdress = firebaseUser.getUid().concat("0"); // 계정의 첫번째 명함 생성
+                            //계정 리스트에 자신 정보 추가
+                            dbReference.child("UserDB").child(dbAdress).setValue(user);
+                            // 자신의 고유값을 부모로 내 계정의 목록 DB 생성
+                            dbReference.child("MyNameCardDB").child(firebaseUser.getUid()).child(dbAdress)
+                                    .child(dbAdress).setValue("");
+                            // ListDB에 자신의 목록 DB 생성
+                            dbReference.child("ListDB").child(firebaseUser.getUid()).setValue("");
+
                             //성공 메세지 출력
                             Toast.makeText(RegisterActivity.this,"회원가입 성공!", Toast.LENGTH_SHORT).show();
                         } else{
