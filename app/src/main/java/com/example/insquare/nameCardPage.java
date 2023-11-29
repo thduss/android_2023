@@ -28,10 +28,10 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import com.google.firebase.firestore.auth.User;
 
 public class nameCardPage extends AppCompatActivity {
-    ImageButton QR_btn, BackBtn;
+    ImageButton QR_btn, BackBtn, Fix_btn;
     ImageView Logo;
     TextView Department, Name, Name2, Rank, Address, Email, Number;
-    String sLogo, sDepartment, sName2, sName, sRank, sAddress, sEmail, sNumber;
+    String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +96,16 @@ public class nameCardPage extends AppCompatActivity {
             }
         });
                                                        
+        //수정 페이지로 변환
+        Fix_btn = findViewById(R.id.fix_btn);
+        Fix_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), nameCard_editpage.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
 
         // QR 페이지로 변환
         QR_btn = findViewById(R.id.QR_btn);
