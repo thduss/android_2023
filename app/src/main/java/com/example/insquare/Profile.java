@@ -102,7 +102,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // ListDB에서 데이터를 가져오는 과정에서 에러 발생 시 처리
-                Log.e("ListActivity", "Failed to retrieve friend UIDs: " + databaseError.getMessage())
+                Log.e("ListActivity", "Failed to retrieve friend UIDs: " + databaseError.getMessage());
               }
         });
 
