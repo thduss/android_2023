@@ -80,6 +80,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="저장"/>
+        <Button
+            android:id="@+id/addToContactsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="연락처에 추가"
+            android:layout_marginTop="8dp"/>
+
 
     </LinearLayout>
 </ScrollView>
