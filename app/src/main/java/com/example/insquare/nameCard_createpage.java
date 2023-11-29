@@ -117,12 +117,12 @@ public class nameCard_createpage extends AppCompatActivity {
                 user.setM_number(number);
                 user.setM_logo(logo);
 
+
                 dbReference.child("MyNameCardDB").child(firebaseUser.getUid()).child("countNum").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         // 데이터 스냅샷에서 개수 가져오기
                         int cnt = dataSnapshot.getValue(Integer.class);
-                        Log.d("asdfqwer",String.valueOf(cnt));
                         // 하나 추가 후 고유번호 뒤에 붙히기
                         cnt++;
                         String num = String.valueOf(cnt);
