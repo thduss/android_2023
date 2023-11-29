@@ -26,9 +26,6 @@
             android:name=".GeneratedQRActivity"
             android:exported="false" />
         <activity
-            android:name=".GeneratedQRCode"
-            android:exported="false" />
-        <activity
             android:name=".UserInfoActivity"
             android:exported="false" />
         <activity
