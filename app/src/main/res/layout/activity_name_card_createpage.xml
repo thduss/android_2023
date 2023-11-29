@@ -82,6 +82,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_name"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -105,6 +106,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_company"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -127,6 +129,7 @@
                 android:paddingLeft="20dp">
 
                 <EditText
+                    android:id="@+id/c_department"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -149,6 +152,7 @@
                 android:paddingLeft="20dp">
 
                 <EditText
+                    android:id="@+id/c_rank"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -198,6 +202,7 @@
                     android:paddingRight="20dp">
 
                     <EditText
+                        android:id="@+id/detail_address"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/transparent"
@@ -222,6 +227,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_email"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -246,6 +252,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_number"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -270,6 +277,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/c_logo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
