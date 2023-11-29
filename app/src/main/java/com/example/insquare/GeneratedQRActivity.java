@@ -1,7 +1,10 @@
 package com.example.insquare;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +16,23 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class GeneratedQRActivity extends AppCompatActivity {
 
+    ImageButton return_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generated_qractivity);
 
         ImageView imageView = findViewById(R.id.qr_code_generated);
+
+        return_btn = findViewById(R.id.back_btn);
+        return_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
 
         // 인텐트에서 QR 데이터 가져오기
         Bundle extras = getIntent().getExtras();

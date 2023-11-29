@@ -31,6 +31,9 @@ public class EmailLoginActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+
+
         et_email = findViewById(R.id.i_email);
         et_pwd = findViewById(R.id.i_password);
 
