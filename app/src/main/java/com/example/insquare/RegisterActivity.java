@@ -123,8 +123,10 @@ public class RegisterActivity extends AppCompatActivity {
                             //계정 리스트에 자신 정보 추가
                             dbReference.child("UserDB").child(dbAdress).setValue(user);
                             // 자신의 고유값을 부모로 내 계정의 목록 DB 생성
-                            dbReference.child("MyNameCardDB").child(firebaseUser.getUid()).child(dbAdress)
-                                    .child(dbAdress).setValue("");
+                            dbReference.child("MyNameCardDB").child(firebaseUser
+                                    .getUid()).child("countNum").setValue(0);
+                            dbReference.child("MyNameCardDB").child(firebaseUser
+                                    .getUid()).child(dbAdress).setValue("");
                             // ListDB에 자신의 목록 DB 생성
                             dbReference.child("ListDB").child(firebaseUser.getUid()).setValue("");
 
