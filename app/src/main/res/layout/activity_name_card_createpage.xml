@@ -24,7 +24,6 @@
                 android:id="@+id/create_back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:background="@color/white"
                 android:contentDescription="뒤로가기 버튼"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
@@ -34,22 +33,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:paddingLeft="10dp"
                 android:gravity="center"
                 android:text="나의 명함 추가하기"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20dp" />
         </LinearLayout>
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="415dp"
-        android:layout_height="600dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         android:layout_marginTop="50dp"
         android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
@@ -289,7 +289,7 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="250dp"
-                android:background="@drawable/btn_radius"
+                android:background="@drawable/radius"
                 android:text="추가 하기"
                 android:textColor="@color/black"
                 android:textSize="11sp" />
