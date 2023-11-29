@@ -49,6 +49,7 @@ public class nameCard_backpage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), nameCard_editpage.class);
                 startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -60,21 +61,25 @@ public class nameCard_backpage extends AppCompatActivity {
                 if(item.getItemId() == R.id.list_id) {
                     intent = new Intent(nameCard_backpage.this, List.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.QR_id) {
                     intent = new Intent(nameCard_backpage.this, QR.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.map_id) {
                     intent = new Intent(nameCard_backpage.this, Map.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 else if(item.getItemId() == R.id.myProfile_id) {
                     intent = new Intent(nameCard_backpage.this, Profile.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 return false;
@@ -99,6 +104,7 @@ public class nameCard_backpage extends AppCompatActivity {
                                 Intent intent = new Intent(nameCard_backpage.this, GeneratedQRActivity.class);
                                 intent.putExtra("QR_DATA", registerInfo.toQRString());
                                 startActivity(intent);
+                                overridePendingTransition(0, 0);
                             } else {
                                 Toast.makeText(nameCard_backpage.this, "사용자 정보가 없습니다", Toast.LENGTH_LONG).show();
                             }

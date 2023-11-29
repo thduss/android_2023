@@ -118,6 +118,7 @@ public class nameCardPage extends AppCompatActivity {
                                 Intent intent = new Intent(nameCardPage.this, GeneratedQRActivity.class);
                                 intent.putExtra("QR_DATA", registerInfo.toQRString());
                                 startActivity(intent);
+                                overridePendingTransition(0, 0);
                             } else {
                                 Toast.makeText(nameCardPage.this, "사용자 정보가 없습니다", Toast.LENGTH_LONG).show();
                             }
