@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -47,11 +46,10 @@ import java.util.List;
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
     RecyclerView rvUsers;
     UserAdapter userAdapter;
-    List<UserModel> userModelList = new ArrayList<>();
+    List<List_User> userModelList = new ArrayList<>();
     SearchView searchView;
     private boolean inSearching = false;
     private Marker selectedMarker; // 추가된 부분 (마커)
-    private Marker initMarker; // 초기 마커를 클래스 변수로 선언
     private FusedLocationSource mLocationSource;
     private NaverMap mNaverMap;
     private static final String TAG = "Map";
@@ -73,13 +71,13 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         databaseReference = database.getReference("UserDB"); // DB 테이블 연결
 
         //db에서 내용 가져오기
-        /*databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
                 userModelList.clear(); // 기존 배열리스트가 존재하지 않게 초기화
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
-                    UserModel user = snapshot.getValue(UserModel.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                    List_User user = snapshot.getValue(List_User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
                     userModelList.add(user); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                 }
                 userAdapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
@@ -90,12 +88,12 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 // 디비를 가져오던중 에러 발생 시
                 Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
-        });*/
+        });
 
         rvUsers = findViewById(R.id.recyclerView);
         // 초기에 RecyclerView를 숨김
         rvUsers.setVisibility(View.GONE);
-        setData(); // 데이터 입력되는 함수 호출
+
         prepareRecycleView();
 
         //검색 기능 구현
@@ -202,14 +200,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         });
     }
 
-    public void setData(){
-        userModelList.add(new UserModel("선강", "김","덕진구청", "전라북도 전주시 덕진구 벚꽃로 55 덕진구청", 0.0, 0.0));
-        userModelList.add(new UserModel("재영", "윤","전주시청","전라북도 전주시 완산구 노송광장로 10 전주시청",0.0, 0.0));
-        userModelList.add(new UserModel("소연", "김","창원시청","경상남도 창원시 성산구 중앙대로 151 창원시청",0.0, 0.0));
-        userModelList.add(new UserModel("현", "진","김제시청","전라북도 김제시 중앙로 40 김제시청",0.0, 0.0));
-        userModelList.add(new UserModel("재영", "전","광주광역시청","광주 서구 내방로 111 광주광역시청",0.0, 0.0));
-        userModelList.add(new UserModel("유희", "이","화순군청","전라남도 화순군 화순읍 동헌길 23 화순군청",0.0, 0.0));
-    }
 
     public void prepareRecycleView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -222,7 +212,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     public void preAdapter() {
         userAdapter = new UserAdapter(userModelList, this, new UserAdapter.OnItemClickListener() {
-            public void onItemClick(UserModel userModel) {
+            public void onItemClick(List_User userModel) {
                 //도로명 주소 -> 위도/경도 바꾸기
                 new Thread(new Runnable() {
                     @Override
@@ -230,20 +220,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                         requestGeocod(userModel);
                     }
                 }).start();
-
-                // 클릭한 항목의 위치에 마커 표시
-                /*showMarker(userModel);
-
-                // 키보드를 내림
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
-
-                // RecyclerView를 숨김
-                rvUsers.setVisibility(View.GONE);
-
-                // 클릭한 항목의 위치 정보를 tv_location에 표시
-                TextView tvLocation = findViewById(R.id.tv_location);
-                tvLocation.setText((int) userModel.getLoc1() + ", " + (int) userModel.getLoc2());*/
             }
         });
         rvUsers.setAdapter(userAdapter);
@@ -259,11 +235,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         // 다른 UI 업데이트 로직 추가 (필요에 따라)
     }
 
-    private void showMarker(UserModel userModel) {
-        if(initMarker != null){ //초기 마커 있으면 지워줌 (초기 마커는 딱히 필요없으므로 테스트 다 끝내고 삭제하기)
-            initMarker.setMap(null);
-        }
-
+    private void showMarker(List_User userModel) {
         if (userModel != null && mNaverMap != null) {
             // 기존 마커가 있으면 제거
             if (selectedMarker != null) {
@@ -271,22 +243,22 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             }
 
             // 선택된 항목의 위치에 새로운 마커 추가
-            //LatLng selectedLocation = new LatLng(35.8477707, 127.1302242); //전북대
             LatLng selectedLocation = new LatLng(userModel.getLoc1(), userModel.getLoc2());
             selectedMarker = new Marker();
             selectedMarker.setPosition(selectedLocation);
             selectedMarker.setMap(mNaverMap);
 
-            // 지도 위치 이동
-            mNaverMap.moveCamera(CameraUpdate.scrollTo(selectedLocation));
+            // 지도 위치 이동 및 초기 확대 수준 설정 (여기서는 14로 설정)
+            CameraPosition cameraPosition = new CameraPosition(selectedLocation, 16.0);
+            mNaverMap.moveCamera(CameraUpdate.toCameraPosition(cameraPosition));
         }
     }
 
-    public void requestGeocod(UserModel userModel){ // 도로명 주소를 위도, 경도로 바꿔주는 함수
+    public void requestGeocod(List_User userModel){ // 도로명 주소를 위도, 경도로 바꿔주는 함수
         try{
             BufferedReader bufferedReader;
             StringBuilder stringBuilder = new StringBuilder();
-            String addr = userModel.getP_location();
+            String addr = userModel.getP_address();
             String query = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" + URLEncoder.encode(addr, "UTF-8");
             URL url = new URL(query);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -294,12 +266,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 conn.setConnectTimeout(5000);
                 conn.setReadTimeout(5000);
                 conn.setRequestMethod("GET");
-
+              
                 conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "***** 키 추가 *****");
                 conn.setRequestProperty("X-NCP-APIGW-API-KEY", "***** 키 추가 *****");
-
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "***** key 넣어*******");
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "***** key 넣어*******");
 
                 conn.setDoInput(true);
 
@@ -349,7 +318,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
                         // 클릭한 항목의 위치 정보를 tv_location에 표시
                         TextView tvLocation = findViewById(R.id.tv_location);
-                        tvLocation.setText(userModel.getP_location());
+                        tvLocation.setText(userModel.getP_address());
                     }
                 });
 
@@ -365,24 +334,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     public void onMapReady(@NonNull NaverMap naverMap) {
         Log.d(TAG, "onMapReady");
 
-        //지도 상에 초기 (test) 마커 표시
-        initMarker = new Marker();
-        LatLng initLocation = new LatLng(35.8087086,126.8927011); //우리집
-        initMarker.setPosition(initLocation);
-        initMarker.setMap(naverMap);
-
         //NaverMap 객체 받아서 NaverMap 객체에 위치 소스 지정
         mNaverMap = naverMap;
         mNaverMap.setLocationSource(mLocationSource);
-
-        // 지도 위치 이동 및 초기 확대 수준 설정 (여기서는 14로 설정)
-        //CameraUpdate cameraUpdate = CameraUpdate.scrollTo(initLocation).zoomIn(15.0);
-        //mNaverMap.moveCamera(cameraUpdate);
-        CameraPosition cameraPosition = new CameraPosition(initLocation, 16.0);
-        mNaverMap.moveCamera(CameraUpdate.toCameraPosition(cameraPosition));
-
-
-//        mNaverMap.moveCamera(CameraUpdate.scrollTo(initLocation).zoomTo(15.0));
 
         //권한 확인. 결과는 onRequestPermissionResult 콜백 메소드 호출
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);

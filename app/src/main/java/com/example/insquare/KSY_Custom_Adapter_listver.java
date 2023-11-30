@@ -77,7 +77,7 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
                 intent.putExtra("department", arrayList.get(pos).getP_department());
                 intent.putExtra("position", arrayList.get(pos).getP_position());
                 intent.putExtra("email", arrayList.get(pos).getP_email());
-                intent.putExtra("adress", arrayList.get(pos).getP_adress());
+                intent.putExtra("adress", arrayList.get(pos).getP_address());
                 intent.putExtra("number", arrayList.get(pos).getP_number());
 
                 context.startActivity(intent);

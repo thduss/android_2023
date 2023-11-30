@@ -117,7 +117,7 @@ public class nameCardPage extends AppCompatActivity {
                     String loggedInUserId = firebaseUser.getUid();
 
                     // MyListDB에서 현재 로그인된 사용자의 명함 정보 가져오기
-                    DatabaseReference myListDBRef = FirebaseDatabase.getInstance().getReference("MyListDB").child(loggedInUserId);
+                    DatabaseReference myListDBRef = FirebaseDatabase.getInstance().getReference("MyNameCardDB").child(loggedInUserId);
                     myListDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -141,6 +141,7 @@ public class nameCardPage extends AppCompatActivity {
                                                     // QR 코드 데이터를 GeneratedQRActivity로 전달
                                                     Intent intent = new Intent(nameCardPage.this, GeneratedQRActivity.class);
                                                     intent.putExtra("QR_DATA", qrData);
+                                                    Toast.makeText(nameCardPage.this, "명함 정보가 있습니다", Toast.LENGTH_LONG).show();
                                                     startActivity(intent);
                                                 } else {
                                                     Toast.makeText(nameCardPage.this, "명함 정보가 없습니다", Toast.LENGTH_LONG).show();
@@ -159,7 +160,7 @@ public class nameCardPage extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(nameCardPage.this, "MyListDB에서 데이터 불러오기에 실패했습니다", Toast.LENGTH_LONG).show();
+                            Toast.makeText(nameCardPage.this, "불러오기에 실패했습니다", Toast.LENGTH_LONG).show(); // MyNameCardDB에서 불러오기 실패
                         }
                     });
                 } else {

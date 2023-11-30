@@ -48,7 +48,6 @@
         <activity
             android:name=".List"
             android:exported="false" />
-
         <activity
             android:name=".KSG_Sc_List_Activity"
             android:exported="false" />
@@ -76,6 +75,7 @@
         <activity
             android:name=".WebViewActivity"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

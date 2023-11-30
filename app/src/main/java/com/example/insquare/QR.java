@@ -29,40 +29,6 @@ public class QR extends AppCompatActivity {
         intentIntegrator.setPrompt("Scan a QR Code"); // QR 코드 스캔 시 표시할 메시지 설정
         intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE); // QR 코드만 스캔하도록 설정
         intentIntegrator.initiateScan(); // 스캔 시작
-
-        //하단바
-        BottomNavigationView bottom_menu = findViewById(R.id.bottom_menu);
-        bottom_menu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-                if(item.getItemId() == R.id.list_id) {
-                    intent = new Intent(QR.this, List.class);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(QR.this, com.example.insquare.QR.class);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                else if(item.getItemId() == R.id.map_id) {
-                    intent = new Intent(QR.this, Map.class);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                else if(item.getItemId() == R.id.myProfile_id) {
-                    intent = new Intent(QR.this, Profile.class);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
