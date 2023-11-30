@@ -283,6 +283,11 @@
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:hint="회사 로고를 첨부해 주세요" />
+                <Button
+                    android:id="@+id/img_upload_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/zxing_transparent" />
             </FrameLayout>
 
             <android.widget.Button

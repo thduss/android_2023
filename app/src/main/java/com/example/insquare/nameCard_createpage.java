@@ -1,5 +1,7 @@
 package com.example.insquare;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -7,7 +9,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,16 +29,27 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import android.net.Uri;
 import com.google.firebase.database.ValueEventListener;
 
 public class nameCard_createpage extends AppCompatActivity {
     ImageButton back_btn;
-    Button add_btn;
+    Button add_btn, Img_upload_btn;
     private EditText et_address;
     EditText c_name, c_company, c_department, c_rank, detail_address, c_email, c_number, c_logo;
     AlertDialog dialog;
     DatabaseReference dbReference;
     FirebaseAuth mFirebaseAuth;
+    private Uri uri;
+    private final int GALLERY_CODE = 10;
+    private FirebaseStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +71,15 @@ public class nameCard_createpage extends AppCompatActivity {
             }
         });
 
+        //이미지 업로드 코드
+        Img_upload_btn = findViewById(R.id.img_upload_btn);
+        Img_upload_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                select();
+            }
+        });
+
         //도로명 주소 API 코드
         et_address = (EditText) findViewById(R.id.et_address2);
         et_address.setFocusable(false);
@@ -68,7 +92,7 @@ public class nameCard_createpage extends AppCompatActivity {
             }
         });
 
-        //디비 연결
+        //버튼 누르면 디비 저장
         c_name = findViewById(R.id.c_name);
         c_company = findViewById(R.id.c_company);
         c_department = findViewById(R.id.c_department);
@@ -147,6 +171,41 @@ public class nameCard_createpage extends AppCompatActivity {
             }
         });
     }
+
+    // img 업로드
+    private void select() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT );
+        intent.setType("image/*");
+        launcher.launch(intent);
+    }
+    private void upload() {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("Study");
+        storageReference.child("images").child("image").putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if(task.isSuccessful()) {
+                    Toast.makeText(nameCard_createpage.this, "업로드에 성공했습니다", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(nameCard_createpage.this, "업로드에 실패했습니다", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        uri = result.getData().getData();
+                        Log.d("test", uri.toString());
+
+                    }
+                }
+            }
+    );
+
 
     //도로명 주소 API 코드
     private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
