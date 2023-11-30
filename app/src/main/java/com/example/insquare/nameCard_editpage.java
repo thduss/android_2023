@@ -22,7 +22,6 @@ public class nameCard_editpage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_card_editpage);
 
-        // 명함 앞 페이지로 변환
         // 마이페이지로 뒤로가기 버튼
         return_btn = findViewById(R.id.back_btn);
         return_btn.setOnClickListener(new View.OnClickListener() {
