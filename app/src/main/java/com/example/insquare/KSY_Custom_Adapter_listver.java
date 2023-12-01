@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
 
 public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_Adapter_listver.CustomViewHolder>{
     private ArrayList<myRegister> arrayList;
@@ -70,8 +74,15 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
                 int pos = holder.getAbsoluteAdapterPosition();
                 Context context = v.getContext();
 
+                //클릭한 뷰 index 값
+                int num = holder.getAbsoluteAdapterPosition();
+
+                Log.e("아이템의 num 값", String.valueOf(num + 1));
+                String str_pos = String.valueOf(num + 1);
+
                 Intent intent = new Intent(context, nameCardPage.class);
 
+                intent.putExtra("index", str_pos);
                 intent.putExtra("logo", arrayList.get(pos).getM_logo());
                 intent.putExtra("username", arrayList.get(pos).getM_name());
                 intent.putExtra("company", arrayList.get(pos).getM_company());

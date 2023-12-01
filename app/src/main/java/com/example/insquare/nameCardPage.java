@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +32,7 @@ public class nameCardPage extends AppCompatActivity {
     ImageButton QR_btn, BackBtn, Fix_btn;
     ImageView Logo;
     TextView Department, Name, Name2, Rank, Address, Email, Number, Detail_address;
-    String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber, sDetail_address, sCompany;
+    String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber, sDetail_address, sCompany, sIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,7 @@ public class nameCardPage extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        sIndex = intent.getExtras().getString("index");
         sLogo = intent.getExtras().getString("logo");
         sName = intent.getExtras().getString("username");
         sCompany = intent.getExtras().getString("company");
@@ -90,6 +92,7 @@ public class nameCardPage extends AppCompatActivity {
         Detail_address.setText(sDetail_address);
         Email.setText(sEmail);
         Number.setText(sNumber);
+        Log.e("아이템의 num 값", String.valueOf(sIndex));
 
         // 뒤로가기
         BackBtn = findViewById(R.id.backBtn);
@@ -107,6 +110,7 @@ public class nameCardPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), nameCard_editpage.class);
 
+                intent.putExtra("index", sIndex);
                 intent.putExtra("logo", sLogo);
                 intent.putExtra("username", sName);
                 intent.putExtra("company", sCompany);
