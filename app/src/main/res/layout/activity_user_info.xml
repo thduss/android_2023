@@ -94,7 +94,7 @@
             </ImageButton>
 
             <ImageButton
-                android:id="@+id/fix_btn"
+                android:id="@+id/addToContactsButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
