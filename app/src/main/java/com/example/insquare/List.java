@@ -114,10 +114,6 @@ public class List extends AppCompatActivity {
             }
         });
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
         //edit 텍스트 구현하기
         editText = findViewById(R.id.editText);
         editText.addTextChangedListener(new TextWatcher() {

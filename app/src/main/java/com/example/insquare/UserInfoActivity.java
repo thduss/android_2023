@@ -6,6 +6,7 @@ import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 // QR코드 스캔하여 데이터 받으면 정보 띄우는 액티비티
 public class UserInfoActivity extends AppCompatActivity {
     private EditText nameEditText, companyEditText, departmentEditText, positionEditText, addressEditText, emailEditText, phoneEditText;
-    private Button saveButton;
+    private ImageButton saveButton;
     private ImageView logoImageView;
     private String[] parts;
     private Button addToContactsButton;

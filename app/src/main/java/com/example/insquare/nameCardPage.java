@@ -30,8 +30,8 @@ import com.google.firebase.firestore.auth.User;
 public class nameCardPage extends AppCompatActivity {
     ImageButton QR_btn, BackBtn, Fix_btn;
     ImageView Logo;
-    TextView Department, Name, Name2, Rank, Address, Email, Number;
-    String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber;
+    TextView Department, Name, Name2, Rank, Address, Email, Number, Detail_address;
+    String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber, sDetail_address, sCompany;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +63,7 @@ public class nameCardPage extends AppCompatActivity {
         Name2 = findViewById(R.id.name2);
         Rank = findViewById(R.id.nc_rank);
         Address = findViewById(R.id.nc_address);
+        Detail_address = findViewById(R.id.nc_detail_address);
         Email = findViewById(R.id.nc_email);
         Number = findViewById(R.id.nc_number);
 
@@ -70,11 +71,13 @@ public class nameCardPage extends AppCompatActivity {
 
         sLogo = intent.getExtras().getString("logo");
         sName = intent.getExtras().getString("username");
+        sCompany = intent.getExtras().getString("company");
         sDepartment = intent.getExtras().getString("department");
-        sRank = intent.getExtras().getString("position");
+        sRank = intent.getExtras().getString("rank");
         sEmail = intent.getExtras().getString("email");
         sNumber = intent.getExtras().getString("number");
-        sAddress = intent.getExtras().getString("adress");
+        sAddress = intent.getExtras().getString("address");
+        sDetail_address = intent.getExtras().getString("detail_address");
 
         Glide.with(this)
                 .load(sLogo)
@@ -84,6 +87,7 @@ public class nameCardPage extends AppCompatActivity {
         Department.setText(sDepartment);
         Rank.setText(sRank);
         Address.setText(sAddress);
+        Detail_address.setText(sDetail_address);
         Email.setText(sEmail);
         Number.setText(sNumber);
 
@@ -102,6 +106,17 @@ public class nameCardPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), nameCard_editpage.class);
+
+                intent.putExtra("logo", sLogo);
+                intent.putExtra("username", sName);
+                intent.putExtra("company", sCompany);
+                intent.putExtra("department", sDepartment);
+                intent.putExtra("rank", sRank);
+                intent.putExtra("email", sEmail);
+                intent.putExtra("address", sAddress);
+                intent.putExtra("detail_address", sDetail_address);
+                intent.putExtra("number", sNumber);
+
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }

@@ -188,7 +188,7 @@
                         android:layout_height="50dp"
                         android:background="@android:color/transparent"
                         android:editable="false"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:focusable="false"
                         android:hint="도로명 주소를 입력해 주세요" />
                 </FrameLayout>
@@ -232,8 +232,7 @@
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:hint="메일을 입력해 주세요"
-                    android:textColor="@color/white"
-                    android:maxLength="11" />
+                    android:textColor="@color/white" />
             </FrameLayout>
 
             <!--전화 번호-->

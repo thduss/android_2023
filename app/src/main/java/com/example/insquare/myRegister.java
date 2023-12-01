@@ -7,6 +7,9 @@ public class myRegister {
     String m_rank;
     String m_address;
     String m_detailAddress;
+    String m_email;
+    String m_number;
+    String m_logo;
 
     public String getM_detailAddress() {
         return m_detailAddress;
@@ -15,10 +18,6 @@ public class myRegister {
     public void setM_detailAddress(String m_detailAddress) {
         this.m_detailAddress = m_detailAddress;
     }
-
-    String m_email;
-    String m_number;
-    String m_logo;
 
     public myRegister() { }
 
