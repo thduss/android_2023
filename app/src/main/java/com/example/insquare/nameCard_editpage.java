@@ -22,7 +22,7 @@ public class nameCard_editpage extends AppCompatActivity {
     Button add_btn, Img_upload_btn;;
     private EditText et_address;
     EditText c_name, c_company, c_department, c_rank, detail_address, c_email, c_number, c_logo;
-    String s_name, s_company, s_department, s_rank, s_detail_address, s_email, s_address, s_number, s_logo;
+    String s_name, s_company, s_department, s_rank, s_detail_address, s_email, s_address, s_number, s_logo, sIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,7 @@ public class nameCard_editpage extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        sIndex = intent.getExtras().getString("index");
         s_logo = intent.getExtras().getString("logo");
         s_name = intent.getExtras().getString("username");
         s_company = intent.getExtras().getString("company");
@@ -81,11 +82,12 @@ public class nameCard_editpage extends AppCompatActivity {
             }
         });
 
-        // 명함 추가 버튼 -> 일단 내 명함 리스트로 가도록 구현했는데 디비에 저장되도록 다시 구현 필요
+        // 명함 수정 버튼
         add_btn = findViewById(R.id.nameCard_fix_btn);
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //s_id에 정보 덮어쓰기 해야함
                 Intent intent = new Intent(getApplicationContext(), Profile.class);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
