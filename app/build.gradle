@@ -54,5 +54,5 @@ dependencies {
     implementation "com.journeyapps:zxing-android-embedded:4.2.0" // QR코드
 
     implementation platform('com.google.firebase:firebase-bom:26.5.0') // 사진 업로드
-    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-storage:20.3.0'
 }

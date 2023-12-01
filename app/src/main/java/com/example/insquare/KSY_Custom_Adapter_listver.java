@@ -94,6 +94,8 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
                 intent.putExtra("number", arrayList.get(pos).getM_number());
 
                 context.startActivity(intent);
+
+
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -118,6 +120,16 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
                 });
                 builder.show();
                 return true;
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myRegister selectedCard = arrayList.get(position);
+
+                Intent intent = new Intent(context, nameCardPage.class);
+                intent.putExtra("cardInfo", selectedCard); // myRegister 객체를 전달
+                context.startActivity(intent);
             }
         });
     }
