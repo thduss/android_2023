@@ -1,5 +1,7 @@
 package com.example.insquare;
 
+import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -7,8 +9,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -47,9 +51,6 @@ public class nameCard_createpage extends AppCompatActivity {
     AlertDialog dialog;
     DatabaseReference dbReference;
     FirebaseAuth mFirebaseAuth;
-    private Uri uri;
-    private final int GALLERY_CODE = 10;
-    private FirebaseStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class nameCard_createpage extends AppCompatActivity {
                 Intent intent = new Intent(nameCard_createpage.this, WebViewActivity.class);
                 getSearchResult.launch(intent);
             }
+
         });
 
         //버튼 누르면 디비 저장
@@ -118,7 +120,7 @@ public class nameCard_createpage extends AppCompatActivity {
                 String logo = c_logo.getText().toString();
 
                 if (name.equals("") || company.equals("") || department.equals("") || rank.equals("") || address.equals("")
-                        || detailAddress.equals("") || email.equals("") || number.equals("") || logo.equals("") ) {
+                        || detailAddress.equals("") || email.equals("") || number.equals("") ) {
                     AlertDialog.Builder bd = new AlertDialog.Builder(nameCard_createpage.this);
                     dialog = bd.setMessage("입력하지 않은 칸이 존재합니다.")
                             .setNegativeButton("확인", null)
@@ -128,7 +130,6 @@ public class nameCard_createpage extends AppCompatActivity {
                 }
 
                 //현재 로그인한 값 받아서
-
                 // realtime database에 저장하는 과정
                 myRegister user = new myRegister();
                 user.setM_name(name);
@@ -174,37 +175,18 @@ public class nameCard_createpage extends AppCompatActivity {
 
     // img 업로드
     private void select() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT );
-        intent.setType("image/*");
-        launcher.launch(intent);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, REQUEST_CODE);
     }
-    private void upload() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference("Study");
-        storageReference.child("images").child("image").putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful()) {
-                    Toast.makeText(nameCard_createpage.this, "업로드에 성공했습니다", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(nameCard_createpage.this, "업로드에 실패했습니다", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+            c_logo.setText(selectedImageUri.toString());
+        }
     }
-    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        uri = result.getData().getData();
-                        Log.d("test", uri.toString());
-
-                    }
-                }
-            }
-    );
 
 
     //도로명 주소 API 코드
