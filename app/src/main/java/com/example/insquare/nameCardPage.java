@@ -37,6 +37,8 @@ public class nameCardPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_card_page);
+        Intent intent = getIntent();
+        String currentCardUID = intent.getStringExtra("selectedCardUID"); // 인텐트에서 고유 UID 받기
 
 
         final EasyFlipView easyFlipView = (EasyFlipView) findViewById(R.id.flipview);
@@ -68,7 +70,7 @@ public class nameCardPage extends AppCompatActivity {
         Email = findViewById(R.id.nc_email);
         Number = findViewById(R.id.nc_number);
 
-        Intent intent = getIntent();
+
 
         sIndex = intent.getExtras().getString("index");
         sLogo = intent.getExtras().getString("logo");
@@ -125,69 +127,33 @@ public class nameCardPage extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             }
         });
-
         // QR 페이지로 변환
+        myRegister cardInfo = (myRegister) intent.getSerializableExtra("cardInfo");
+
+        // QR 버튼 설정 및 클릭 이벤트 처리
         QR_btn = findViewById(R.id.QR_btn);
         QR_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (firebaseUser != null) {
-                    String loggedInUserId = firebaseUser.getUid();
+                if (cardInfo != null) {
+                    String qrData = cardInfo.getM_name() + ", " +
+                            cardInfo.getM_company() + ", " +
+                            cardInfo.getM_department() + ", " +
+                            cardInfo.getM_rank() + ", " +
+                            cardInfo.getM_address() + ", " +
+                            cardInfo.getM_email() + ", " +
+                            cardInfo.getM_number() + ", " +
+                            cardInfo.getM_logo();
 
-                    // MyListDB에서 현재 로그인된 사용자의 명함 정보 가져오기
-                    DatabaseReference myListDBRef = FirebaseDatabase.getInstance().getReference("MyNameCardDB").child(loggedInUserId);
-                    myListDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                for (DataSnapshot cardSnapshot : dataSnapshot.getChildren()) {
-                                    // 현재 화면에 띄워진 명함의 고유 UID (p_uid)
-                                    String currentCardUID = cardSnapshot.child("p_uid").getValue(String.class);
-
-                                    // UserDB에서 해당 명함의 정보 가져오기
-                                    DatabaseReference userDBRef = FirebaseDatabase.getInstance().getReference("UserDB").child(currentCardUID);
-                                    userDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot userSnapshot) {
-                                            if (userSnapshot.exists()) {
-                                                Register cardInfo = userSnapshot.getValue(Register.class);
-
-                                                if (cardInfo != null) {
-                                                    // 명함 정보를 QR 코드 데이터로 변환
-                                                    String qrData = cardInfo.toQRString();
-
-                                                    // QR 코드 데이터를 GeneratedQRActivity로 전달
-                                                    Intent intent = new Intent(nameCardPage.this, GeneratedQRActivity.class);
-                                                    intent.putExtra("QR_DATA", qrData);
-                                                    Toast.makeText(nameCardPage.this, "명함 정보가 있습니다", Toast.LENGTH_LONG).show();
-                                                    startActivity(intent);
-                                                } else {
-                                                    Toast.makeText(nameCardPage.this, "명함 정보가 없습니다", Toast.LENGTH_LONG).show();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                                            Toast.makeText(nameCardPage.this, "데이터 불러오기에 실패했습니다", Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(nameCardPage.this, "불러오기에 실패했습니다", Toast.LENGTH_LONG).show(); // MyNameCardDB에서 불러오기 실패
-                        }
-                    });
+                    Intent qrIntent = new Intent(nameCardPage.this, GeneratedQRActivity.class);
+                    qrIntent.putExtra("QR_DATA", qrData);
+                    startActivity(qrIntent);
                 } else {
-                    Toast.makeText(nameCardPage.this, "로그인 되지 않았습니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(nameCardPage.this, "명함 정보가 없습니다", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
-
     }
+
+
 }

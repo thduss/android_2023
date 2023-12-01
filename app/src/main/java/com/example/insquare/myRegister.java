@@ -1,6 +1,8 @@
 package com.example.insquare;
 
-public class myRegister {
+import java.io.Serializable;
+
+public class myRegister implements Serializable {
     String m_id;
     String m_name;
     String m_company;

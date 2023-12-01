@@ -39,6 +39,7 @@ public class Profile extends AppCompatActivity {
     private ArrayList<String> filterUidlist = new ArrayList<>(); //검색 필터 된 uid 리스트
     private FirebaseAuth mFirebaseAuth;
     private KSY_Custom_Adapter_listver adapter;
+    private String selectedCardUID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
