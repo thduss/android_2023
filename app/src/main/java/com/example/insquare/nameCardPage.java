@@ -38,7 +38,9 @@ public class nameCardPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_card_page);
         Intent intent = getIntent();
-        String currentCardUID = intent.getStringExtra("selectedCardUID"); // 인텐트에서 고유 UID 받기
+
+        // cardInfo(class타입 객체)로 data를 넘김
+        myRegister cardInfo = (myRegister) intent.getSerializableExtra("cardInfo");
 
 
         final EasyFlipView easyFlipView = (EasyFlipView) findViewById(R.id.flipview);
@@ -70,18 +72,15 @@ public class nameCardPage extends AppCompatActivity {
         Email = findViewById(R.id.nc_email);
         Number = findViewById(R.id.nc_number);
 
-
-
-        sIndex = intent.getExtras().getString("index");
-        sLogo = intent.getExtras().getString("logo");
-        sName = intent.getExtras().getString("username");
-        sCompany = intent.getExtras().getString("company");
-        sDepartment = intent.getExtras().getString("department");
-        sRank = intent.getExtras().getString("rank");
-        sEmail = intent.getExtras().getString("email");
-        sNumber = intent.getExtras().getString("number");
-        sAddress = intent.getExtras().getString("address");
-        sDetail_address = intent.getExtras().getString("detail_address");
+        sLogo = cardInfo.getM_logo();
+        sName = cardInfo.getM_name();
+        sCompany = cardInfo.getM_company();
+        sDepartment = cardInfo.getM_department();
+        sRank = cardInfo.getM_rank();
+        sEmail = cardInfo.getM_email();
+        sNumber = cardInfo.getM_number();
+        sAddress = cardInfo.getM_address();
+        sDetail_address = cardInfo.getM_address();
 
         Glide.with(this)
                 .load(sLogo)
@@ -127,8 +126,6 @@ public class nameCardPage extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             }
         });
-        // QR 페이지로 변환
-        myRegister cardInfo = (myRegister) intent.getSerializableExtra("cardInfo");
 
         // QR 버튼 설정 및 클릭 이벤트 처리
         QR_btn = findViewById(R.id.QR_btn);
