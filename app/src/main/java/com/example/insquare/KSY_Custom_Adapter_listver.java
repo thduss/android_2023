@@ -82,7 +82,6 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
 
                 Intent intent = new Intent(context, nameCardPage.class);
 
-                intent.putExtra("index", str_pos);
                 intent.putExtra("logo", arrayList.get(pos).getM_logo());
                 intent.putExtra("username", arrayList.get(pos).getM_name());
                 intent.putExtra("company", arrayList.get(pos).getM_company());
