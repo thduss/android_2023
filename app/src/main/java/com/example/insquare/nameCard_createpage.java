@@ -150,6 +150,7 @@ public class nameCard_createpage extends AppCompatActivity {
                         int cnt = dataSnapshot.getValue(Integer.class);
                         // 하나 추가 후 고유번호 뒤에 붙히기
                         cnt++;
+
                         String num = String.valueOf(cnt);
                         String dbAddress = firebaseUser.getUid().concat(num);
 

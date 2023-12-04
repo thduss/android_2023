@@ -72,6 +72,7 @@ public class nameCardPage extends AppCompatActivity {
         Email = findViewById(R.id.nc_email);
         Number = findViewById(R.id.nc_number);
 
+        sIndex = intent.getExtras().getString("index");
         sLogo = cardInfo.getM_logo();
         sName = cardInfo.getM_name();
         sCompany = cardInfo.getM_company();
