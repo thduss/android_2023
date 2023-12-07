@@ -13,6 +13,7 @@ public class myRegister implements Serializable {
     String m_number;
     String m_logo;
 
+
     public String getM_detailAddress() {
         return m_detailAddress;
     }
