@@ -33,6 +33,17 @@ public class nameCardPage extends AppCompatActivity {
     ImageView Logo;
     TextView Department, Name, Name2, Rank, Address, Email, Number, Detail_address;
     String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber, sDetail_address, sCompany, sIndex;
+
+    //전재영 추가
+
+    FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 authentication 연동
+
+
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myDatabaseReference = database.getReference();
+
+    // 전재영 추가 끝
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +53,9 @@ public class nameCardPage extends AppCompatActivity {
         // cardInfo(class타입 객체)로 data를 넘김
         myRegister cardInfo = (myRegister) intent.getSerializableExtra("cardInfo");
 
+        //전재영 추가
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 현재 로그인한 계정 객체화
+        //전재영 추가 끝
 
         final EasyFlipView easyFlipView = (EasyFlipView) findViewById(R.id.flipview);
         easyFlipView.setFlipDuration(400);
@@ -134,17 +148,12 @@ public class nameCardPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (cardInfo != null) {
-                    String qrData = cardInfo.getM_name() + ", " +
-                            cardInfo.getM_company() + ", " +
-                            cardInfo.getM_department() + ", " +
-                            cardInfo.getM_rank() + ", " +
-                            cardInfo.getM_address() + ", " +
-                            cardInfo.getM_email() + ", " +
-                            cardInfo.getM_number() + ", " +
-                            cardInfo.getM_logo();
+                    String qrUid =
+                            (firebaseUser.getUid().toString()).concat(intent.getExtras().getString("index"));
+                    // 객체화한 계정의 고유값을 myIdCode로 받기
 
                     Intent qrIntent = new Intent(nameCardPage.this, GeneratedQRActivity.class);
-                    qrIntent.putExtra("QR_DATA", qrData);
+                    qrIntent.putExtra("QR_DATA", qrUid);
                     startActivity(qrIntent);
                 } else {
                     Toast.makeText(nameCardPage.this, "명함 정보가 없습니다", Toast.LENGTH_LONG).show();

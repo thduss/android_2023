@@ -1,10 +1,6 @@
 package com.example.insquare;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,20 +12,17 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-// QR코드 스캔하여 데이터 받으면 정보 띄우는 액티비티
 public class UserInfoActivity extends AppCompatActivity {
     private EditText nameEditText, companyEditText, departmentEditText, positionEditText, addressEditText, emailEditText, phoneEditText;
     private ImageButton saveButton;
     private ImageView logoImageView;
-    private String[] parts;
-    private Button addToContactsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
-        // EditText, Button 및 ImageView 초기화
+        // EditText, ImageButton, ImageView 초기화
         nameEditText = findViewById(R.id.nameEditText);
         companyEditText = findViewById(R.id.companyEditText);
         departmentEditText = findViewById(R.id.departmentEditText);
@@ -40,30 +33,18 @@ public class UserInfoActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         logoImageView = findViewById(R.id.logoImageView);
 
-        // QR 코드 데이터 받아 파싱하고 화면에 표시
+        // QR 코드 데이터 받아오기 및 파싱
         String qrData = getIntent().getStringExtra("QR_DATA");
-        parseAndDisplayQRData(qrData);
+        parseQRDataAndDisplay(qrData);
 
-        // 저장 버튼 클릭 이벤트 처리
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveUserInfo();
-            }
-        });
-        addToContactsButton = findViewById(R.id.addToContactsButton);
-        addToContactsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addToContacts();
-            }
-        });
+        // 저장 버튼 클릭 리스너 설정
+        saveButton.setOnClickListener(v -> saveUserInfo());
     }
 
-    // QR 데이터 파싱 및 화면에 표시하는 메서드
-    private void parseAndDisplayQRData(String data) {
+    // QR 데이터 파싱 및 화면에 표시하는 메소드
+    private void parseQRDataAndDisplay(String data) {
         String[] parts = data.split(",");
-        if (parts.length >= 8) {
+        if (parts.length >= 7) {
             nameEditText.setText(parts[0]);
             companyEditText.setText(parts[1]);
             departmentEditText.setText(parts[2]);
@@ -72,59 +53,41 @@ public class UserInfoActivity extends AppCompatActivity {
             emailEditText.setText(parts[5]);
             phoneEditText.setText(parts[6]);
 
-            // 로고 URL을 사용하여 ImageView에 이미지 로딩
-            Glide.with(this).load(this.parts[7]).into(logoImageView);
+            // Glide를 사용하여 로고 이미지를 ImageView에 로드
+            Glide.with(this).load(parts[7]).into(logoImageView);
         }
     }
-    // 전화번호부 창을 열어 저장할 수 있게 해주는 메서드
-    private void addToContacts() {
-        // EditText에서 이름, 회사, 전화번호 추출
-        String name = nameEditText.getText().toString();
-        String company = companyEditText.getText().toString();
-        String phoneNumber = phoneEditText.getText().toString();
 
-        // 연락처 추가 인텐트 생성 및 설정
-        Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
-        intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-
-        // 이름, 회사, 전화번호를 인텐트에 추가
-        intent.putExtra(ContactsContract.Intents.Insert.NAME, name)
-                .putExtra(ContactsContract.Intents.Insert.PHONE, phoneNumber)
-                .putExtra(ContactsContract.Intents.Insert.COMPANY, company);
-
-        // 연락처 추가 화면 시작
-        startActivity(intent);
-    }
-
-
-    // 사용자 정보를 Firebase에 저장하는 메서드
+    // 사용자 정보를 Firebase에 저장하는 메소드
     private void saveUserInfo() {
-        // 각 EditText에서 정보 추출
+        // EditText에서 정보 추출
         String name = nameEditText.getText().toString();
         String company = companyEditText.getText().toString();
         String department = departmentEditText.getText().toString();
         String position = positionEditText.getText().toString();
         String address = addressEditText.getText().toString();
         String email = emailEditText.getText().toString();
-        String phoneNumber = phoneEditText.getText().toString();
-        String logoUrl = parts[7];
+        String phone = phoneEditText.getText().toString();
+        String logo = ""; // QR 데이터의 8번째 부분이 로고 URL이라고 가정
+        if (!phoneEditText.getText().toString().isEmpty()) {
+            logo = phoneEditText.getText().toString();
+        }
 
-        // UserInfo 객체 생성
-        Register register = new Register(name, company, department, position, address, phoneNumber, email, logoUrl);
+        // List_User 객체 생성 및 설정
+        List_User user = new List_User();
+        user.setP_name(name);
+        user.setP_company(company);
+        user.setP_department(department);
+        user.setP_position(position);
+        user.setP_address(address);
+        user.setP_email(email);
+        user.setP_number(phone);
+        user.setP_logo(logo);
 
-        // Firebase 데이터베이스 참조 생성
+        // Firebase에 List_User 객체 저장
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ListDB");
-
-
-        // Firebase에 사용자 정보 저장
-        databaseReference.push().setValue(register)
-                .addOnSuccessListener(aVoid -> {
-                    // 데이터 저장 성공 시 사용자에게 알림
-                    Toast.makeText(UserInfoActivity.this, "저장하였습니다", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    // 데이터 저장 실패 시 사용자에게 알림
-                    Toast.makeText(UserInfoActivity.this, "저장에 실패했습니다", Toast.LENGTH_SHORT).show();
-                });
+        databaseReference.push().setValue(user)
+                .addOnSuccessListener(aVoid -> Toast.makeText(UserInfoActivity.this, "저장 성공", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(UserInfoActivity.this, "저장 실패", Toast.LENGTH_SHORT).show());
     }
 }
