@@ -27,13 +27,13 @@ import java.util.ArrayList;
 
 
 public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_Adapter_listver.CustomViewHolder>{
-    private ArrayList<myRegister> arrayList;
+    private ArrayList<List_User> arrayList;
     private ArrayList<String> uidList;
     private String myUid;
     private Context context;
 
 
-    public KSY_Custom_Adapter_listver(ArrayList<myRegister> arrayList, ArrayList<String> uidList, String myUid, Context context) {
+    public KSY_Custom_Adapter_listver(ArrayList<List_User> arrayList, ArrayList<String> uidList, String myUid, Context context) {
         this.arrayList = arrayList;
         this.uidList = uidList;
         this.myUid = myUid;
@@ -57,14 +57,14 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
         holder.itemView.setTag(position);
         //프로필 사진 정보 불러오기
         Glide.with(holder.itemView)
-                .load(arrayList.get(position).getM_logo())
+                .load(arrayList.get(position).getP_logo())
                 .into(holder.iv_logo);
 
         //회사id 정보 받아오기
-        holder.tv_company.setText(arrayList.get(position).getM_company());
+        holder.tv_company.setText(arrayList.get(position).getP_company()            );
 
         //이름 정보 받아오기
-        holder.tv_username.setText(arrayList.get(position).getM_name());
+        holder.tv_username.setText(arrayList.get(position).getP_name());
 
         //short 클릭 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -76,15 +76,15 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
 
                 Intent intent = new Intent(context, nameCardPage.class);
 
-                intent.putExtra("logo", arrayList.get(pos).getM_logo());
-                intent.putExtra("username", arrayList.get(pos).getM_name());
-                intent.putExtra("company", arrayList.get(pos).getM_company());
-                intent.putExtra("department", arrayList.get(pos).getM_department());
-                intent.putExtra("rank", arrayList.get(pos).getM_rank());
-                intent.putExtra("email", arrayList.get(pos).getM_email());
-                intent.putExtra("address", arrayList.get(pos).getM_address());
-                intent.putExtra("detail_address", arrayList.get(pos).getM_detailAddress());
-                intent.putExtra("number", arrayList.get(pos).getM_number());
+                intent.putExtra("logo", arrayList.get(pos).getP_logo());
+                intent.putExtra("username", arrayList.get(pos).getP_name());
+                intent.putExtra("company", arrayList.get(pos).getP_company());
+                intent.putExtra("department", arrayList.get(pos).getP_department());
+                intent.putExtra("rank", arrayList.get(pos).getP_position());
+                intent.putExtra("email", arrayList.get(pos).getP_email());
+                intent.putExtra("address", arrayList.get(pos).getP_address());
+                intent.putExtra("detail_address", arrayList.get(pos).getP_detail_address());
+                intent.putExtra("number", arrayList.get(pos).getP_number());
 
                 context.startActivity(intent);
 
@@ -118,7 +118,7 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRegister selectedCard = arrayList.get(position);
+                List_User selectedCard = arrayList.get(position);
                 //클릭한 뷰 index 값
                 int num = holder.getAbsoluteAdapterPosition();
 
@@ -127,6 +127,7 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
                 Intent intent = new Intent(context, nameCardPage.class);
                 intent.putExtra("index", str_pos);
                 intent.putExtra("cardInfo", selectedCard); // myRegister 객체를 전달
+
                 context.startActivity(intent);
             }
         });
@@ -140,7 +141,7 @@ public class KSY_Custom_Adapter_listver extends RecyclerView.Adapter<KSY_Custom_
     }
 
     //검색기능
-    public void setItems(ArrayList<myRegister> list){
+    public void setItems(ArrayList<List_User> list){
         arrayList = list;
         notifyDataSetChanged();
     }

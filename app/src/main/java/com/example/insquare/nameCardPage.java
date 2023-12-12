@@ -40,7 +40,7 @@ public class nameCardPage extends AppCompatActivity {
         Intent intent = getIntent();
 
         // cardInfo(class타입 객체)로 data를 넘김
-        myRegister cardInfo = (myRegister) intent.getSerializableExtra("cardInfo");
+        List_User cardInfo = (List_User) intent.getSerializableExtra("cardInfo");
 
 
         final EasyFlipView easyFlipView = (EasyFlipView) findViewById(R.id.flipview);
@@ -73,15 +73,15 @@ public class nameCardPage extends AppCompatActivity {
         Number = findViewById(R.id.nc_number);
 
         sIndex = intent.getExtras().getString("index");
-        sLogo = cardInfo.getM_logo();
-        sName = cardInfo.getM_name();
-        sCompany = cardInfo.getM_company();
-        sDepartment = cardInfo.getM_department();
-        sRank = cardInfo.getM_rank();
-        sEmail = cardInfo.getM_email();
-        sNumber = cardInfo.getM_number();
-        sAddress = cardInfo.getM_address();
-        sDetail_address = cardInfo.getM_address();
+        sLogo = cardInfo.getP_logo();
+        sName = cardInfo.getP_name();
+        sCompany = cardInfo.getP_company();
+        sDepartment = cardInfo.getP_department();
+        sRank = cardInfo.getP_position();
+        sEmail = cardInfo.getP_email();
+        sNumber = cardInfo.getP_number();
+        sAddress = cardInfo.getP_address();
+        sDetail_address = cardInfo.getP_detail_address();
 
         Glide.with(this)
                 .load(sLogo)
@@ -134,14 +134,14 @@ public class nameCardPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (cardInfo != null) {
-                    String qrData = cardInfo.getM_name() + ", " +
-                            cardInfo.getM_company() + ", " +
-                            cardInfo.getM_department() + ", " +
-                            cardInfo.getM_rank() + ", " +
-                            cardInfo.getM_address() + ", " +
-                            cardInfo.getM_email() + ", " +
-                            cardInfo.getM_number() + ", " +
-                            cardInfo.getM_logo();
+                    String qrData = cardInfo.getP_name() + ", " +
+                            cardInfo.getP_company() + ", " +
+                            cardInfo.getP_department() + ", " +
+                            cardInfo.getP_position() + ", " +
+                            cardInfo.getP_address() + ", " +
+                            cardInfo.getP_email() + ", " +
+                            cardInfo.getP_number() + ", " +
+                            cardInfo.getP_logo();
 
                     Intent qrIntent = new Intent(nameCardPage.this, GeneratedQRActivity.class);
                     qrIntent.putExtra("QR_DATA", qrData);

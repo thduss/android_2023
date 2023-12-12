@@ -131,16 +131,16 @@ public class nameCard_createpage extends AppCompatActivity {
 
                 //현재 로그인한 값 받아서
                 // realtime database에 저장하는 과정
-                myRegister user = new myRegister();
-                user.setM_name(name);
-                user.setM_company(company);
-                user.setM_department(department);
-                user.setM_rank(rank);
-                user.setM_address(address);
-                user.setM_detailAddress(detailAddress);
-                user.setM_email(email);
-                user.setM_number(number);
-                user.setM_logo(logo);
+                List_User user = new List_User();
+                user.setP_name(name);
+                user.setP_company(company);
+                user.setP_department(department);
+                user.setP_position(rank);
+                user.setP_address(address);
+                user.setP_detail_address(detailAddress);
+                user.setP_email(email);
+                user.setP_number(number);
+                user.setP_logo(logo);
 
 
                 dbReference.child("MyNameCardDB").child(firebaseUser.getUid()).child("countNum").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -177,7 +177,7 @@ public class nameCard_createpage extends AppCompatActivity {
     // img 업로드
     private void select() {
         Intent intent = new Intent(Intent.ACTION_PICK);
-        intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        intent. setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, REQUEST_CODE);
     }
     @Override
