@@ -1,21 +1,41 @@
 package com.example.insquare;
 
+import android.content.ContentProviderOperation;
 import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
+
+import java.util.ArrayList;
+
 
 public class KSG_Sc_List_Activity extends AppCompatActivity {
     ImageView sc_Logo;
     TextView sc_Username,sc_Username2 ,sc_Department, sc_Position, sc_Email, sc_Number, sc_Adress;
-    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress;
+    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress, sUid;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private FirebaseAuth mFirebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +77,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sEmail = intent.getExtras().getString("email");
         sNumber = intent.getExtras().getString("number");
         sAdress = intent.getExtras().getString("adress");
+        sUid = intent.getExtras().getString("uid");
 
         Glide.with(this)
                 .load(sLogo)
@@ -77,5 +98,71 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
             }
         });
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        ImageButton saveNumBtn = findViewById(R.id.saveNumBtn);
+        saveNumBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContactAdd();
+            }
+        });
     }
+    public void ContactAdd(){
+        new Thread(){
+            @Override
+            public void run() {
+
+                ArrayList<ContentProviderOperation> list = new ArrayList<>();
+                try{
+                    list.add(
+                            ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                                    .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                                    .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                                    .build()
+                    );
+
+                    list.add(
+                            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+
+                                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                                    .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, sUsername)
+
+                                    .build()
+                    );
+
+                    list.add(
+                            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+
+                                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, sNumber)
+                                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE , ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+
+                                    .build()
+                    );
+
+                    list.add(
+                            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+
+                                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                                    .withValue(ContactsContract.CommonDataKinds.Email.DATA, sEmail)
+                                    .withValue(ContactsContract.CommonDataKinds.Email.TYPE , ContactsContract.CommonDataKinds.Email.TYPE_WORK)
+
+                                    .build()
+                    );
+
+                    getApplicationContext().getContentResolver().applyBatch(ContactsContract.AUTHORITY, list);
+                    list.clear();
+                } catch(RemoteException e){
+                    e.printStackTrace();
+                }catch(OperationApplicationException e){
+
+                }
+            }
+        }.start();
+    }
+
 }
