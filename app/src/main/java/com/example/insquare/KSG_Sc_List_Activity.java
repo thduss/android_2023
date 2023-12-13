@@ -162,7 +162,6 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
                         ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
                                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                                .withValue(ContactsContract.CommonDataKinds.Email.DATA, sEmail)
                                 .withValue(ContactsContract.CommonDataKinds.Email.DATA, sCompany)
                                 .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
                                 .build()
