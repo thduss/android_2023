@@ -37,7 +37,7 @@ import android.Manifest;
 public class KSG_Sc_List_Activity extends AppCompatActivity {
     ImageView sc_Logo;
     TextView sc_Username,sc_Username2 ,sc_Department, sc_Position, sc_Email, sc_Number, sc_Adress;
-    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress, sUid;
+    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress, sUid, sCompany;
 
 
     @Override
@@ -81,6 +81,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sNumber = intent.getExtras().getString("number");
         sAdress = intent.getExtras().getString("adress");
         sUid = intent.getExtras().getString("uid");
+        sCompany = intent.getExtras().getString("company");
 
         Glide.with(this)
                 .load(sLogo)
@@ -161,7 +162,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
                         ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
                                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                                .withValue(ContactsContract.CommonDataKinds.Email.DATA, sEmail)
+                                .withValue(ContactsContract.CommonDataKinds.Email.DATA, sCompany)
                                 .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
                                 .build()
                 );

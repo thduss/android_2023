@@ -81,6 +81,7 @@ public class KSG_Custom_Adapter_listver extends RecyclerView.Adapter<KSG_Custom_
                 intent.putExtra("adress", arrayList.get(pos).getP_address());
                 intent.putExtra("number", arrayList.get(pos).getP_number());
                 intent.putExtra("uid", uidList.get(pos));
+                intent.putExtra("company", arrayList.get(pos).getP_company());
 
                 context.startActivity(intent);
             }
