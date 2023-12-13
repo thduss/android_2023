@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import android.Manifest;
 
 public class List extends AppCompatActivity {
 
@@ -151,6 +152,7 @@ public class List extends AppCompatActivity {
                 }
             }
         });
+
 
 
         adapter = new KSG_Custom_Adapter_listver(myList, myUidList, myIdCode ,this);
