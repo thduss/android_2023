@@ -32,7 +32,7 @@ public class Profile extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myDatabaseReference;
     private ArrayList<List_User> arrayList; //UserDB 리스트 / 전체 유저의 정보가 담김 리스트임
-    private ArrayList<myRegister> myList; //ListDB 리스트 / 로그인한 유저안에 있는 유저의 정보가 담김 리스트임
+    private ArrayList<List_User> myList; //ListDB 리스트 / 로그인한 유저안에 있는 유저의 정보가 담김 리스트임
     private ArrayList<List_User> filterlist = new ArrayList<>(); //검색 필터 된 리스트
     private ArrayList<String> uidList; //UserDB Uid리스트 / 전체 유저의 Uid 정보가 담긴 리스트임
     private ArrayList<String> myUidList; //ListDB Uid리스트 / 로그인한 유저안에 있는 유저의 Uid 정보가 담긴 리스트임
@@ -83,7 +83,7 @@ public class Profile extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot userSnapshot) {
                             // "UserDB"에서 해당 사용자의 정보를 추출
                             if (userSnapshot.exists()) {
-                                myRegister user = userSnapshot.getValue(myRegister.class);
+                                List_User user = userSnapshot.getValue(List_User.class);
                                 // 가져온 사용자 정보를 myList에 추가
                                 myList.add(user);
                                 // 데이터 변경을 어댑터에 알리기

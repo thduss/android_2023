@@ -1,6 +1,8 @@
 package com.example.insquare;
 
-public class List_User {
+import java.io.Serializable;
+
+public class List_User implements Serializable {
     private String p_logo;
     private String p_name;
     private String p_department;
@@ -9,11 +11,20 @@ public class List_User {
     private String uid;
     private String p_email;
     private String p_address;
+    private String p_detail_address;
     private String p_number;
     private String p_gender;
     private double Loc1; //위도
     private double Loc2; //경도
-    public List_User(){}
+    public List_User (){}
+
+    public String getP_detail_address() {
+        return p_detail_address;
+    }
+
+    public void setP_detail_address(String p_detail_address) {
+        this.p_detail_address = p_detail_address;
+    }
 
     public String getP_logo() {
         return p_logo;

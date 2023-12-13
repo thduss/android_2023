@@ -33,17 +33,6 @@ public class nameCardPage extends AppCompatActivity {
     ImageView Logo;
     TextView Department, Name, Name2, Rank, Address, Email, Number, Detail_address;
     String sLogo, sDepartment, sName, sRank, sAddress, sEmail, sNumber, sDetail_address, sCompany, sIndex;
-
-    //전재영 추가
-
-    FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 authentication 연동
-
-
-
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myDatabaseReference = database.getReference();
-
-    // 전재영 추가 끝
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +40,8 @@ public class nameCardPage extends AppCompatActivity {
         Intent intent = getIntent();
 
         // cardInfo(class타입 객체)로 data를 넘김
-        myRegister cardInfo = (myRegister) intent.getSerializableExtra("cardInfo");
+        List_User cardInfo = (List_User) intent.getSerializableExtra("cardInfo");
 
-        //전재영 추가
-        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 현재 로그인한 계정 객체화
-        //전재영 추가 끝
 
         final EasyFlipView easyFlipView = (EasyFlipView) findViewById(R.id.flipview);
         easyFlipView.setFlipDuration(400);
@@ -87,15 +73,15 @@ public class nameCardPage extends AppCompatActivity {
         Number = findViewById(R.id.nc_number);
 
         sIndex = intent.getExtras().getString("index");
-        sLogo = cardInfo.getM_logo();
-        sName = cardInfo.getM_name();
-        sCompany = cardInfo.getM_company();
-        sDepartment = cardInfo.getM_department();
-        sRank = cardInfo.getM_rank();
-        sEmail = cardInfo.getM_email();
-        sNumber = cardInfo.getM_number();
-        sAddress = cardInfo.getM_address();
-        sDetail_address = cardInfo.getM_address();
+        sLogo = cardInfo.getP_logo();
+        sName = cardInfo.getP_name();
+        sCompany = cardInfo.getP_company();
+        sDepartment = cardInfo.getP_department();
+        sRank = cardInfo.getP_position();
+        sEmail = cardInfo.getP_email();
+        sNumber = cardInfo.getP_number();
+        sAddress = cardInfo.getP_address();
+        sDetail_address = cardInfo.getP_address();
 
         Glide.with(this)
                 .load(sLogo)
@@ -148,12 +134,17 @@ public class nameCardPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (cardInfo != null) {
-                    String qrUid =
-                            (firebaseUser.getUid().toString()).concat(intent.getExtras().getString("index"));
-                    // 객체화한 계정의 고유값을 myIdCode로 받기
+                    String qrData = cardInfo.getP_name() + ", " +
+                            cardInfo.getP_company() + ", " +
+                            cardInfo.getP_department() + ", " +
+                            cardInfo.getP_position() + ", " +
+                            cardInfo.getP_address() + ", " +
+                            cardInfo.getP_email() + ", " +
+                            cardInfo.getP_number() + ", " +
+                            cardInfo.getP_logo();
 
                     Intent qrIntent = new Intent(nameCardPage.this, GeneratedQRActivity.class);
-                    qrIntent.putExtra("QR_DATA", qrUid);
+                    qrIntent.putExtra("QR_DATA", qrData);
                     startActivity(qrIntent);
                 } else {
                     Toast.makeText(nameCardPage.this, "명함 정보가 없습니다", Toast.LENGTH_LONG).show();
