@@ -350,7 +350,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
                         // 클릭한 항목의 위치 정보를 tv_location에 표시
                         TextView tvLocation = findViewById(R.id.tv_location);
-                        tvLocation.setText(userModel.getP_address());
+                        tvLocation.setText(userModel.getP_address() +" "+ userModel.getP_detail_address());
                     }
                 });
 
