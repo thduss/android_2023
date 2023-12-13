@@ -3,6 +3,8 @@ package com.example.insquare;
 import android.content.ContentProviderOperation;
 import android.content.Intent;
 import android.content.OperationApplicationException;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,14 +31,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
+import android.Manifest;
 
 
 public class KSG_Sc_List_Activity extends AppCompatActivity {
     ImageView sc_Logo;
     TextView sc_Username,sc_Username2 ,sc_Department, sc_Position, sc_Email, sc_Number, sc_Adress;
     String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress, sUid;
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    private FirebaseAuth mFirebaseAuth;
 
 
     @Override
@@ -91,6 +94,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sc_Number.setText(sNumber);
 
         ImageButton backBt = findViewById(R.id.sc_bt_back);
+
         backBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,76 +102,89 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
         ImageButton saveNumBtn = findViewById(R.id.saveNumBtn);
         saveNumBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, 1);
+
+                // 권한을 확인하고 없다면 요청하는 코드
+                String[] permissions = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS};
+
+                if (ContextCompat.checkSelfPermission(KSG_Sc_List_Activity.this, Manifest.permission.READ_CONTACTS)
+                        != PackageManager.PERMISSION_GRANTED ||
+                        ContextCompat.checkSelfPermission(KSG_Sc_List_Activity.this, Manifest.permission.WRITE_CONTACTS)
+                                != PackageManager.PERMISSION_GRANTED) {
+                    // 권한이 허용되지 않았을 경우
+                    // 사용자에게 권한 요청 다이얼로그 표시
+                    ActivityCompat.requestPermissions(KSG_Sc_List_Activity.this, permissions, 1);
+                } else {
+                    // 이미 권한이 허용되어 있을 경우 주소록 액세스 코드 실행
+                    // 예: 주소록 선택 Intent 시작 코드
+                    new ContactAddTask().execute();
+                }
+
             }
         });
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            new Thread(){
-                @Override
-                public void run() {
+    private class ContactAddTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            ArrayList<ContentProviderOperation> list = new ArrayList<>();
+            try {
+                list.add(
+                        ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                                .build()
+                );
 
-                    ArrayList<ContentProviderOperation> list = new ArrayList<>();
-                    try{
-                        list.add(
-                                ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-                                        .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                                        .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
-                                        .build()
-                        );
+                list.add(
+                        ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, sUsername)
+                                .build()
+                );
 
-                        list.add(
-                                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                                        .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                list.add(
+                        ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, sNumber)
+                                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+                                .build()
+                );
 
-                                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                                        .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, sUsername)
+                list.add(
+                        ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                                .withValue(ContactsContract.CommonDataKinds.Email.DATA, sEmail)
+                                .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
+                                .build()
+                );
 
-                                        .build()
-                        );
-
-                        list.add(
-                                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                                        .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-
-                                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                                        .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, sNumber)
-                                        .withValue(ContactsContract.CommonDataKinds.Phone.TYPE , ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
-
-                                        .build()
-                        );
-
-                        list.add(
-                                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                                        .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-
-                                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                                        .withValue(ContactsContract.CommonDataKinds.Email.DATA, sEmail)
-                                        .withValue(ContactsContract.CommonDataKinds.Email.TYPE , ContactsContract.CommonDataKinds.Email.TYPE_WORK)
-
-                                        .build()
-                        );
-
-                        getApplicationContext().getContentResolver().applyBatch(ContactsContract.AUTHORITY, list);
-                        list.clear();
-                    } catch(RemoteException e){
-                        e.printStackTrace();
-                    }catch(OperationApplicationException e){
-
-                    }
-                }
-            }.start();
+                getApplicationContext().getContentResolver().applyBatch(ContactsContract.AUTHORITY, list); //주소록추가
+                list.clear();
+                return true;
+            } catch (RemoteException | OperationApplicationException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (success) {
+                // 연락처 추가 성공
+                Toast.makeText(KSG_Sc_List_Activity.this, "연락처가 추가되었습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                // 연락처 추가 실패
+                Toast.makeText(KSG_Sc_List_Activity.this, "연락처 추가에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+            // 작업이 완료된 후에 수행할 작업이 있다면 여기에 추가
         }
     }
+}
