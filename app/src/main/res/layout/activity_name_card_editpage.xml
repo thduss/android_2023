@@ -290,7 +290,7 @@
                             android:id="@+id/img_upload_btn"
                             android:layout_width="match_parent"
                             android:layout_marginTop="20dp"
-                            android:text="이미지 넣기"
+                            android:text="이미지 저장하기"
                             android:textColor="@color/black"
                             android:textSize="11sp"
                             android:layout_height="40dp"
