@@ -276,17 +276,33 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
 
-                <EditText
-                    android:id="@+id/c_logo"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@android:color/transparent"
-                    android:hint="회사 로고를 첨부해 주세요" />
-                <Button
-                    android:id="@+id/img_upload_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/zxing_transparent" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_upload_image"
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/image_search"/>
+                    <Button
+                        android:id="@+id/img_upload_btn"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:text="이미지 넣기"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/radius" />
+                    <EditText
+                        android:id="@+id/e_logo"
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        android:background="@android:color/transparent"
+                        android:hint="회사 로고 url" />
+                </LinearLayout>
             </FrameLayout>
 
             <android.widget.Button

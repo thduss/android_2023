@@ -1,5 +1,6 @@
 package com.example.insquare;
 
+import static android.content.ContentValues.TAG;
 import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
 
 import androidx.activity.result.ActivityResult;
@@ -21,9 +22,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,12 +49,18 @@ import com.google.firebase.database.ValueEventListener;
 
 public class nameCard_createpage extends AppCompatActivity {
     ImageButton back_btn;
-    Button add_btn, Img_upload_btn;
+    ImageView iv_upload_image;
+    Button add_btn, img_upload_btn;
     private EditText et_address;
     EditText c_name, c_company, c_department, c_rank, detail_address, c_email, c_number, c_logo;
     AlertDialog dialog;
     DatabaseReference dbReference;
     FirebaseAuth mFirebaseAuth;
+    private Uri imageUri;
+    private FirebaseStorage mStorage = FirebaseStorage.getInstance();
+    StorageReference storageRef = mStorage.getReference();
+    private UploadTask uploadTask = null; // 파일 업로드하는 객체
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +82,57 @@ public class nameCard_createpage extends AppCompatActivity {
             }
         });
 
-        //이미지 업로드 코드
-        Img_upload_btn = findViewById(R.id.img_upload_btn);
-        Img_upload_btn.setOnClickListener(new View.OnClickListener() {
+        //갤러리 접근 코드
+        iv_upload_image = findViewById(R.id.iv_upload_image);
+        iv_upload_image.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                select();
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityResult.launch(intent);
+            }
+        });
+        // storage 저장 코드
+        img_upload_btn = findViewById(R.id.img_upload_btn);
+        img_upload_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //사진을 스토리지에 올리는 코드
+                // 이미지 파일 경로 지정 (/item/사용자 documentId / IAMGE_DOCUMENTID_UPLOADID_.png)
+                String filename = "image_" + System.currentTimeMillis() + ".png";
+                storageRef = mStorage.getReference().child("images").child(filename);
+                uploadTask = storageRef.putFile(imageUri);
+                //파일 업로드 시작
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        //업로드 성공 시 이미지를 올린 url 가져오기
+                        Log.d(TAG, "onSuccess: upload");
+                        downloadUri(); // 업로드 성공 시 업로드한 파일 Uri 다운받기
+                        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                url = uri.toString();
+                                Log.d("uri : ", uri.toString());
+                                c_logo.setText(url);
+//                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //업로드 실패 시 동작
+                        Log.d(TAG, "onFailure: upload");
+                    }
+                });
+
             }
         });
 
@@ -174,19 +229,39 @@ public class nameCard_createpage extends AppCompatActivity {
         });
     }
 
-    // img 업로드
-    private void select() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent. setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intent, REQUEST_CODE);
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri selectedImageUri = data.getData();
-            c_logo.setText(selectedImageUri.toString());
+    // 갤러리 접근 코드
+    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if ( result.getResultCode() == RESULT_OK && result.getData() != null) {
+                imageUri = result.getData().getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    iv_upload_image.setImageBitmap(bitmap);	//이미지를 띄울 이미지뷰 설정
+                }
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+    });
+
+    // 지정한 경로(reference)에 대한 uri 을 다운로드하는 method
+    // uri를 통해 이미지를 불러올 수 있음
+    void downloadUri() {
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: download");
+            }
+        });
     }
 
 
