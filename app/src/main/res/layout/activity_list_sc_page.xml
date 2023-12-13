@@ -98,6 +98,13 @@
                 android:text="전라북도 전주시 덕진구 백제대로 567
                 전북대학교 전주캠퍼스"
                 android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/sc_tv_back_detail_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="공과대학 7호관 534호"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <!-- Front Layout Goes Here -->

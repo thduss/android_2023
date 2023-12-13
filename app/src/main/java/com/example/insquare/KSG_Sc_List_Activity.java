@@ -36,8 +36,8 @@ import android.Manifest;
 
 public class KSG_Sc_List_Activity extends AppCompatActivity {
     ImageView sc_Logo;
-    TextView sc_Username,sc_Username2 ,sc_Department, sc_Position, sc_Email, sc_Number, sc_Adress;
-    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress, sUid, sCompany;
+    TextView sc_Username,sc_Username2 ,sc_Department, sc_Position, sc_Email, sc_Number, sc_Adress, sc_detail_address;
+    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress, sUid, sCompany, sdetailAddress;
 
 
     @Override
@@ -68,6 +68,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sc_Department = findViewById(R.id.sc_tv_name2);
         sc_Position = findViewById(R.id.sc_tv_name3);
         sc_Adress = findViewById(R.id.sc_tv_back_adress);
+        sc_detail_address = findViewById(R.id.sc_tv_back_detail_address);
         sc_Email = findViewById(R.id.sc_tv_back_email);
         sc_Number = findViewById(R.id.sc_tv_back_number);
 
@@ -80,6 +81,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sEmail = intent.getExtras().getString("email");
         sNumber = intent.getExtras().getString("number");
         sAdress = intent.getExtras().getString("adress");
+        sdetailAddress = intent.getExtras().getString("detail_address");
         sUid = intent.getExtras().getString("uid");
         sCompany = intent.getExtras().getString("company");
 
@@ -93,6 +95,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sc_Adress.setText(sAdress);
         sc_Email.setText(sEmail);
         sc_Number.setText(sNumber);
+        sc_detail_address.setText(sdetailAddress);
 
         ImageButton backBt = findViewById(R.id.sc_bt_back);
 
