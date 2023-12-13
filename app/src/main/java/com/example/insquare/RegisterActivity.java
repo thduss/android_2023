@@ -132,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             String db_address = firebaseUser.getUid().concat("0");// 아이디 고유번호의 첫번째 명함 생성
                             dbReference.child("UserDB").child(db_address).setValue(user); // userDB에 생성
-                            dbReference.child("MyListDB").child(firebaseUser.getUid()).child(db_address).setValue(user);
+                            //dbReference.child("MyListDB").child(firebaseUser.getUid()).child(db_address).setValue(user);
                             // myListDB에 이 계정 고유값 안에 여러 명함 생성 기반
                             //성공 메세지 출력
                             Toast.makeText(RegisterActivity.this,"회원가입 성공!", Toast.LENGTH_SHORT).show();
