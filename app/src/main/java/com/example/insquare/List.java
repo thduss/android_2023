@@ -153,6 +153,7 @@ public class List extends AppCompatActivity {
         });
 
 
+        
         adapter = new KSG_Custom_Adapter_listver(myList, myUidList, myIdCode ,this);
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 

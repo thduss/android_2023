@@ -104,65 +104,70 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         saveNumBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContactAdd();
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, 1);
             }
         });
     }
-    public void ContactAdd(){
-        new Thread(){
-            @Override
-            public void run() {
 
-                ArrayList<ContentProviderOperation> list = new ArrayList<>();
-                try{
-                    list.add(
-                            ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-                                    .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                                    .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
-                                    .build()
-                    );
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                    list.add(
-                            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            new Thread(){
+                @Override
+                public void run() {
 
-                                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                                    .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, sUsername)
+                    ArrayList<ContentProviderOperation> list = new ArrayList<>();
+                    try{
+                        list.add(
+                                ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                                        .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                                        .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                                        .build()
+                        );
 
-                                    .build()
-                    );
+                        list.add(
+                                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                        .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
 
-                    list.add(
-                            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                                        .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, sUsername)
 
-                                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, sNumber)
-                                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE , ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+                                        .build()
+                        );
 
-                                    .build()
-                    );
+                        list.add(
+                                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                        .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
 
-                    list.add(
-                            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                                        .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, sNumber)
+                                        .withValue(ContactsContract.CommonDataKinds.Phone.TYPE , ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
 
-                                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                                    .withValue(ContactsContract.CommonDataKinds.Email.DATA, sEmail)
-                                    .withValue(ContactsContract.CommonDataKinds.Email.TYPE , ContactsContract.CommonDataKinds.Email.TYPE_WORK)
+                                        .build()
+                        );
 
-                                    .build()
-                    );
+                        list.add(
+                                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                        .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
 
-                    getApplicationContext().getContentResolver().applyBatch(ContactsContract.AUTHORITY, list);
-                    list.clear();
-                } catch(RemoteException e){
-                    e.printStackTrace();
-                }catch(OperationApplicationException e){
+                                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                                        .withValue(ContactsContract.CommonDataKinds.Email.DATA, sEmail)
+                                        .withValue(ContactsContract.CommonDataKinds.Email.TYPE , ContactsContract.CommonDataKinds.Email.TYPE_WORK)
 
+                                        .build()
+                        );
+
+                        getApplicationContext().getContentResolver().applyBatch(ContactsContract.AUTHORITY, list);
+                        list.clear();
+                    } catch(RemoteException e){
+                        e.printStackTrace();
+                    }catch(OperationApplicationException e){
+
+                    }
                 }
-            }
-        }.start();
+            }.start();
+        }
+        }
     }
-
-}
