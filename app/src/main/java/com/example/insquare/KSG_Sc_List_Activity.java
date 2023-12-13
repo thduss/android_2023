@@ -191,3 +191,4 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         }
     }
 }
+
