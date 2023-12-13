@@ -104,6 +104,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         saveNumBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(v.getId()!=R.id.saveNumBtn) {return;}
                 ContactAdd();
             }
         });
@@ -159,7 +160,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
                 } catch(RemoteException e){
                     e.printStackTrace();
                 }catch(OperationApplicationException e){
-
+                    e.printStackTrace();
                 }
             }
         }.start();
