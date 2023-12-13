@@ -95,7 +95,7 @@ public class nameCardPage extends AppCompatActivity {
         sEmail = cardInfo.getP_email();
         sNumber = cardInfo.getP_number();
         sAddress = cardInfo.getP_address();
-        sDetail_address = cardInfo.getP_address();
+        sDetail_address = cardInfo.getP_detail_address();
 
         Glide.with(this)
                 .load(sLogo)

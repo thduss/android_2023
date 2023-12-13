@@ -20,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +45,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
+    private ArrayList<String> myUidList;
     RecyclerView rvUsers;
     UserAdapter userAdapter;
     List<List_User> userModelList = new ArrayList<>();
@@ -62,31 +66,59 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
+    private FirebaseAuth mFirebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-        databaseReference = database.getReference("UserDB"); // DB 테이블 연결
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        String myIdCode = firebaseUser.getUid().toString();
+        myUidList = new ArrayList<>();
+
+        databaseReference = database.getReference("ListDB").child(myIdCode); // DB 테이블 연결
 
         //db에서 내용 가져오기
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
-                userModelList.clear(); // 기존 배열리스트가 존재하지 않게 초기화
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
-                    List_User user = snapshot.getValue(List_User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
-                    userModelList.add(user); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+                userModelList.clear(); // 기존 배열리스트 초기화
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    final String friendUid = snapshot.getKey(); // 친구의 키값
+                    myUidList.add(friendUid);
+
+                    // "UserDB"에서 해당 사용자의 정보를 가져오기
+                    DatabaseReference userDatabaseReference = database.getReference("UserDB").child(friendUid);
+                    userDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot userSnapshot) {
+                            // "UserDB"에서 해당 사용자의 정보를 추출
+                            if (userSnapshot.exists()) {
+                                List_User user = userSnapshot.getValue(List_User.class);
+                                // 가져온 사용자 정보를 myList에 추가
+                                userModelList.add(user);
+                                // 데이터 변경을 어댑터에 알리기
+                                userAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // UserDB에서 사용자 정보를 가져오는 과정에서 에러 발생 시 처리
+                            Log.e("ListActivity", "Failed to retrieve user information: " + databaseError.getMessage());
+                        }
+                    });
                 }
-                userAdapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 디비를 가져오던중 에러 발생 시
-                Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                // ListDB에서 데이터를 가져오는 과정에서 에러 발생 시 처리
+                Log.e("ListActivity", "Failed to retrieve friend UIDs: " + databaseError.getMessage());
             }
         });
 
@@ -266,9 +298,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 conn.setConnectTimeout(5000);
                 conn.setReadTimeout(5000);
                 conn.setRequestMethod("GET");
-              
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "***** 키 추가 *****");
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "***** 키 추가 *****");
+
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "dpncqq1sjt");
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "dcYW2xe4m8O3v2RrHLPTqG1JM1u8pNVovzLb3sdp");
 
                 conn.setDoInput(true);
 
