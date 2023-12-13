@@ -21,16 +21,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="이메일로 시작하기"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="7dp"/>
+        android:layout_marginTop="20dp"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/main_textInputLayout_ID"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -38,7 +38,7 @@
             android:id="@+id/i_email"
             android:layout_width="320dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:hint="이메일을 입력해주세요."
             android:padding="10dp" />
 
@@ -55,7 +55,7 @@
                 android:id="@+id/i_password"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="40dp"
                 android:hint="비밀번호를 입력해주세요."
                 android:inputType="textPassword"
                 android:padding="10dp" />
@@ -67,7 +67,7 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/black"
         android:text="로그인"
         android:textSize="20sp"
