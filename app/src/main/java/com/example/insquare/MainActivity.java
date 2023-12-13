@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent EmailLoginIntent = new Intent(MainActivity.this, EmailLoginActivity.class);
-                MainActivity.this.startActivity(EmailLoginIntent);
+                startActivity(EmailLoginIntent);
+                overridePendingTransition(0, 0);
             }
         });
     }

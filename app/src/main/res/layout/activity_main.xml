@@ -27,7 +27,7 @@
         android:fontFamily="sans-serif-black"
         android:textColor="@color/white"
         android:layout_marginTop="10sp" />
-    <Button
+    <!--<Button
         android:id="@+id/start_to_kakao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:backgroundTint="#FFE400"
-        />
+        />-->
     <Button
         android:id="@+id/start_to_email"
         android:layout_width="wrap_content"
@@ -49,11 +49,12 @@
         android:text="이메일로 시작하기"
         android:textSize="18sp"
         android:fontFamily="sans-serif-black"
-        android:textColor="@color/white"
-        android:layout_marginTop="1sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="190sp"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:padding="0sp"
-        android:backgroundTint="@color/black"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:background="@drawable/radius"
         />
 </LinearLayout>
