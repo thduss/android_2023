@@ -50,11 +50,12 @@ public class QR extends AppCompatActivity {
             if(intentResult.getContents() != null) {
                 FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 현재 로그인한 계정 객체화
                 String myIdCode = firebaseUser.getUid().toString(); // 객체화한 계정의 고유값을 myIdCode로 받기
-
+                Log.d("JEONJAE",intentResult.getContents().concat(myIdCode));
                 dbReference.child("ListDB").child(myIdCode).child(intentResult.getContents()).setValue("");
                 // QR 코드 스캔 결과 처리
                 Intent intent = new Intent(QR.this, List.class);
                 startActivity(intent);
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
