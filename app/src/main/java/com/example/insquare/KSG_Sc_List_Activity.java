@@ -3,6 +3,7 @@ package com.example.insquare;
 import android.content.ContentProviderOperation;
 import android.content.Intent;
 import android.content.OperationApplicationException;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
@@ -13,7 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.Manifest;
+import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,9 +36,10 @@ import java.util.ArrayList;
 
 
 public class KSG_Sc_List_Activity extends AppCompatActivity {
+    private static final int REQUEST_CODE_CONTACT = 1;
     ImageView sc_Logo;
     TextView sc_Username,sc_Username2 ,sc_Department, sc_Position, sc_Email, sc_Number, sc_Adress;
-    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress, sUid;
+    String sLogo, sUsername, sDepartment, sPosition, sEmail, sNumber, sAdress, sUid, sCompany;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth mFirebaseAuth;
 
@@ -78,6 +85,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
         sNumber = intent.getExtras().getString("number");
         sAdress = intent.getExtras().getString("adress");
         sUid = intent.getExtras().getString("uid");
+        sCompany = intent.getExtras().getString("company");
 
         Glide.with(this)
                 .load(sLogo)
@@ -105,9 +113,30 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(v.getId()!=R.id.saveNumBtn) {return;}
-                ContactAdd();
+                requestContactPermission();
             }
         });
+    }
+
+    private void requestContactPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CONTACTS}, REQUEST_CODE_CONTACT);
+        } else {
+            ContactAdd();
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_CONTACT) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                ContactAdd();
+            } else {
+                // 권한이 거부된 경우 처리
+                Toast.makeText(this, "필요한 권한이 거부되었습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
     }
     public void ContactAdd(){
         new Thread(){
@@ -149,7 +178,7 @@ public class KSG_Sc_List_Activity extends AppCompatActivity {
                                     .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
 
                                     .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                                    .withValue(ContactsContract.CommonDataKinds.Email.DATA, sEmail)
+                                    .withValue(ContactsContract.CommonDataKinds.Email.DATA, sCompany)
                                     .withValue(ContactsContract.CommonDataKinds.Email.TYPE , ContactsContract.CommonDataKinds.Email.TYPE_WORK)
 
                                     .build()
