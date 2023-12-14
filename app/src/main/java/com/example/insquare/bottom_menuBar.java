@@ -22,7 +22,7 @@ public class bottom_menuBar extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
                 if(item.getItemId() == R.id.list_id) {
-                    intent = new Intent(bottom_menuBar.this, List.class);
+                    intent = new Intent(bottom_menuBar.this, ListPage.class);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;

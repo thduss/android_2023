@@ -61,7 +61,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Intent intent;
                     if(item.getItemId() == R.id.list_id) {
-                        intent = new Intent(nameCard_backpage.this, List.class);
+                        intent = new Intent(nameCard_backpage.this, ListPage.class);
                         startActivity(intent);
                         return true;
                     }
