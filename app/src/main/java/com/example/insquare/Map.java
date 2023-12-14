@@ -204,7 +204,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
                 if(item.getItemId() == R.id.list_id) {
-                    intent = new Intent(Map.this, List.class);
+                    intent = new Intent(Map.this, ListPage.class);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;

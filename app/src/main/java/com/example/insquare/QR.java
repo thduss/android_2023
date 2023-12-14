@@ -53,7 +53,7 @@ public class QR extends AppCompatActivity {
                 Log.d("JEONJAE",intentResult.getContents().concat(myIdCode));
                 dbReference.child("ListDB").child(myIdCode).child(intentResult.getContents()).setValue("");
                 // QR 코드 스캔 결과 처리
-                Intent intent = new Intent(QR.this, List.class);
+                Intent intent = new Intent(QR.this, ListPage.class);
                 startActivity(intent);
 
             }

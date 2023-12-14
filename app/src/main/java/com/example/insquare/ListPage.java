@@ -1,17 +1,17 @@
 package com.example.insquare;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,35 +24,35 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Profile extends AppCompatActivity {
-    Button add_btn;
-    //데이터베이스 부분
+public class ListPage extends AppCompatActivity {
+
     private RecyclerView recyclerView;
+    private RecyclerView.Adapter rv_adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private FirebaseDatabase database;
-    private DatabaseReference myDatabaseReference;
     private ArrayList<List_User> arrayList; //UserDB 리스트 / 전체 유저의 정보가 담김 리스트임
     private ArrayList<List_User> myList; //ListDB 리스트 / 로그인한 유저안에 있는 유저의 정보가 담김 리스트임
     private ArrayList<List_User> filterlist = new ArrayList<>(); //검색 필터 된 리스트
     private ArrayList<String> uidList; //UserDB Uid리스트 / 전체 유저의 Uid 정보가 담긴 리스트임
     private ArrayList<String> myUidList; //ListDB Uid리스트 / 로그인한 유저안에 있는 유저의 Uid 정보가 담긴 리스트임
     private ArrayList<String> filterUidlist = new ArrayList<>(); //검색 필터 된 uid 리스트
+    private KSG_Custom_Adapter_listver adapter;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private DatabaseReference myDatabaseReference;
+
+    private EditText editText;
     private FirebaseAuth mFirebaseAuth;
-    private KSY_Custom_Adapter_listver adapter;
-    private String selectedCardUID;
-// hi
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        //데이터베이스 연결해 내 명함 리스트 띄우는 부분
-        recyclerView = findViewById(R.id.cardList);
-        recyclerView.setHasFixedSize(true);
-
+        setContentView(R.layout.activity_list);
+        recyclerView = findViewById(R.id.recyclerView_List); // 아디 연결
+        recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
         uidList = new ArrayList<>();
         myList = new ArrayList<>();
@@ -61,11 +61,14 @@ public class Profile extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 authentication 연동
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 현재 로그인한 계정 객체화
         String myIdCode = firebaseUser.getUid().toString(); // 객체화한 계정의 고유값을 myIdCode로 받기
+        
+        //이거 없어도 될듯
+        //Toast.makeText(this, myIdCode, Toast.LENGTH_SHORT).show();
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
         //////////////////////////////////////////////////////////////////////////////////////////////
-        myDatabaseReference = database.getReference("MyNameCardDB").child(myIdCode); //ListDB 안에 내가 추가한 계정들만 있는 DB로 경로 설정
+        myDatabaseReference = database.getReference("ListDB").child(myIdCode); //ListDB 안에 내가 추가한 계정들만 있는 DB로 경로 설정
 
         myDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -104,23 +107,49 @@ public class Profile extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // ListDB에서 데이터를 가져오는 과정에서 에러 발생 시 처리
                 Log.e("ListActivity", "Failed to retrieve friend UIDs: " + databaseError.getMessage());
-              }
-        });
-
-        // 해당 명함 페이지로 들어가는 버튼
-        add_btn = findViewById(R.id.card_add_btn);
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), nameCard_createpage.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
             }
         });
 
-        // 명함 리스트 창에 어뎁터 연결
-        adapter = new KSY_Custom_Adapter_listver(myList, myUidList, myIdCode ,this);
-        recyclerView.setAdapter(adapter);
+        //edit 텍스트 구현하기
+        editText = findViewById(R.id.editText);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String searchText = editText.getText().toString();
+                filterlist.clear();
+
+                if(searchText.equals("")){
+                    adapter.setItems(myList);
+                }
+                else {
+                    // 검색 단어를 포함하는지 확인
+                    for (int i = 0; i < myList.size(); i++) {
+                        if (myList.get(i).getP_name() != null && myList.get(i).getP_company() != null) {
+                            if (myList.get(i).getP_name().toLowerCase().contains(searchText.toLowerCase()) ||
+                                    myList.get(i).getP_company().toLowerCase().contains(searchText.toLowerCase())) {
+                                filterlist.add(myList.get(i));
+                                filterUidlist.add(myUidList.get(i));
+                            }
+                        }
+                    }
+                    adapter.setItems(filterlist);
+                }
+            }
+        });
+
+
+
+        adapter = new KSG_Custom_Adapter_listver(myList, myUidList, myIdCode ,this);
+        recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
 
         //하단바 부분 복붙하셈
@@ -129,26 +158,23 @@ public class Profile extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
-                if(item.getItemId() == R.id.list_id) {
-                    intent = new Intent(Profile.this, ListPage.class);
+                if (item.getItemId() == R.id.list_id) {
+                    intent = new Intent(ListPage.this, ListPage.class);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;
-                }
-                else if(item.getItemId() == R.id.QR_id) {
-                    intent = new Intent(Profile.this, QR.class);
+                } else if (item.getItemId() == R.id.QR_id) {
+                    intent = new Intent(ListPage.this, QR.class);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;
-                }
-                else if(item.getItemId() == R.id.map_id) {
-                    intent = new Intent(Profile.this, Map.class);
+                } else if (item.getItemId() == R.id.map_id) {
+                    intent = new Intent(ListPage.this, Map.class);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;
-                }
-                else if(item.getItemId() == R.id.myProfile_id) {
-                    intent = new Intent(Profile.this, Profile.class);
+                } else if (item.getItemId() == R.id.myProfile_id) {
+                    intent = new Intent(ListPage.this, Profile.class);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;
@@ -156,5 +182,7 @@ public class Profile extends AppCompatActivity {
                 return false;
             }
         });
+
     }
+
 }
