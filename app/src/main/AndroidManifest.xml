@@ -35,7 +35,7 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="*****키값 넣으시오******" />
+            android:value="dpncqq1sjt" />
 
         <activity
             android:name=".nameCard_createpage"
