@@ -299,8 +299,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 conn.setReadTimeout(5000);
                 conn.setRequestMethod("GET");
 
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "*****키값 넣으시오******");
-                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "*****키값 넣으시오******");
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "dpncqq1sjt");
+                conn.setRequestProperty("X-NCP-APIGW-API-KEY", "dcYW2xe4m8O3v2RrHLPTqG1JM1u8pNVovzLb3sdp");
 
                 conn.setDoInput(true);
 
