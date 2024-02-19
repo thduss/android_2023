@@ -24,7 +24,7 @@
 
 | **김선강** | **김소연** | **윤재영** | **전재영** | **진현** |
 | :------: | :------: | :------: | :------: | :------: |
-| [@선강](https://github.com/) | [@thdus](https://github.com/thduss) | [@재영](https://github.com/) | [@재영](https://github.com/) | [@진현](https://github.com/) |
+| [@선강](https://github.com/) | [@thdus](https://github.com/thduss) | [@재영](https://github.com/) | [@재영](https://github.com/) | [@진현](https://github.com/jhyun13) |
 
 </div>
 
@@ -102,9 +102,9 @@
 ### 진현
 
 - **UI**
-    - 페이지 :
-    - 공통 컴포넌트 : 
+    - 페이지 : 지도 페이지
+    - 공통 컴포넌트 : 하단바, 버튼
 - **기능**
-    - ** 기능
+    - 명함 속 주소 위치 시각화, 이름/회사명 검색으로 명함 속 주소 찾기
     
 <br>
