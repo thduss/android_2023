@@ -24,7 +24,7 @@
 
 | **김선강** | **김소연** | **윤재영** | **전재영** | **진현** |
 | :------: | :------: | :------: | :------: | :------: |
-| [@선강](https://github.com/) | [@thdus](https://github.com/thduss) | [@재영](https://github.com/) | [@재영](https://github.com/) | [@진현](https://github.com/jhyun13) |
+| [@선강](https://github.com/) | [@thdus](https://github.com/thduss) | [@재영](https://github.com/) | [@재영](https://github.com/) | [@jhyun13](https://github.com/jhyun13) |
 
 </div>
 
