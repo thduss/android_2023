@@ -24,7 +24,7 @@
 
 | **김선강** | **김소연** | **윤재영** | **전재영** | **진현** |
 | :------: | :------: | :------: | :------: | :------: |
-| [@선강](https://github.com/) | [@thdus](https://github.com/thduss) | [@재영](https://github.com/) | [@재영](https://github.com/) | [@jhyun13](https://github.com/jhyun13) |
+| [@선강](https://github.com/) | [@thdus](https://github.com/thduss) | [@jae-0](https://github.com/jae-0) | [@재영](https://github.com/) | [@jhyun13](https://github.com/jhyun13) |
 
 </div>
 
@@ -82,17 +82,17 @@
 ### 윤재영
 
 - **UI**
-    - 페이지 :
-    - 공통 컴포넌트 : 
+    - 페이지 : 초기 시작 페이지, 로그인 페이지, 회원가입 페이지
+    - 공통 컴포넌트 : 버튼
 - **기능**
-    - ** 기능
+    - 전체적인 DB 구조 설계, 회원가입시 기본 명함 생성
 
 <br>
 
 ### 전재영
 
 - **UI**
-    - 페이지 :
+    - 페이지 : 
     - 공통 컴포넌트 : 
 - **기능**
     - ** 기능
